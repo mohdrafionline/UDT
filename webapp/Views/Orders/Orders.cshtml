@@ -1,0 +1,480 @@
+﻿			<!-- MAIN CONTENT -->
+<!-- We recommend you use "your_style.css" to override SmartAdmin
+     specific styles this will also ensure you retrain your customization with each SmartAdmin update.--->
+<link rel="stylesheet" type="text/css" media="screen" href="/Content/css/your_style.css">
+
+<div id="content">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-shopping-cart fa-fw "></i>
+                Order Information
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false" data-widget-collapsed="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-shopping-cart"></i> </span>
+                        <h2>Orders</h2>
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            <table id="datatable_fixed_column" class="table table-striped table-bordered table-hover " style="width:100%;">
+
+                                <thead>
+                                    <tr>
+                                        <th class="hasinput" style="width:10%">
+                                            <input type="text" class="form-control" placeholder="Filter Order" />
+                                        </th>
+                                        <th class="hasinput" style="width:20%">
+                                            <input type="text" class="form-control" placeholder="Filter PO" />
+                                        </th>
+                                        <th class="hasinput" style="width:15%">
+                                            <input type="text" class="form-control" placeholder="Filter Purchase Date" />
+                                        </th>
+                                        <th class="hasinput" style="width:15%">
+                                            <input type="text" class="form-control" placeholder="Filter Delivery Date" />
+                                        </th>
+                                        <th class="hasinput" style="width:10%">
+                                            <input type="text" class="form-control" placeholder="Filter Price" />
+                                        </th>
+                                        <th class="hasinput" style="width:10%">
+                                            <input type="text" class="form-control" placeholder="Filter Qty." />
+                                        </th>
+                                        <th class="hasinput" style="width:10%">
+                                            <input type="text" class="form-control" placeholder="Filter Postal/Zip" />
+                                        </th>
+                                        <th class="hasinput" style="width:30%">
+                                            <input type="text" class="form-control" placeholder="Filter Status" />
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th data-class="expand"><i class="fa fa-fw fa-gift txt-color-blue hidden-md hidden-sm hidden-xs"></i> Order ID</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-folder txt-color-blue hidden-md hidden-sm hidden-xs"></i> Custumer PO</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i> Purchase Date</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i> Delivery</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-money txt-color-blue hidden-md hidden-sm hidden-xs"></i> Base Price</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-dropbox txt-color-blue hidden-md hidden-sm hidden-xs"></i> Qty. Order</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Postal/Zip</th>
+                                        <th class="text-right">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd" role="row">
+                                        <td>100</td>
+                                        <td>418-109-1913</td>
+                                        <td>2015/04/19</td>
+                                        <td>2015/01/08</td>
+                                        <td>$94.56</td>
+                                        <td>600</td>
+                                        <td>31195</td>
+                                        <td><span class="center-block padding-5 label label-success">Delivered</span></td>
+                                    </tr>
+                                    <tr class="even" role="row">
+                                        <td>101</td>
+                                        <td>990-667-7807</td>
+                                        <td>2015/03/06</td>
+                                        <td>2015/10/04</td>
+                                        <td>$27.86</td>
+                                        <td>980</td>
+                                        <td>52461</td>
+                                        <td><span class="center-block padding-5 label label-warning">Pending</span></td>
+                                    </tr>
+                                    <tr class="odd" role="row">
+                                        <td>102</td>
+                                        <td>311-911-1205</td>
+                                        <td>2015/07/29</td>
+                                        <td>2016/12/15</td>
+                                        <td>$4.56</td>
+                                        <td>1521</td>
+                                        <td>65221</td>
+                                        <td><span class="center-block padding-5 label label-warning">Pending</span></td>
+                                    </tr>
+                                    <tr class="even" role="row">
+                                        <td>103</td>
+                                        <td>385-793-5538</td>
+                                        <td>2015/04/01</td>
+                                        <td>2015/02/18</td>
+                                        <td>$3.16</td>
+                                        <td>840</td>
+                                        <td>28331</td>
+                                        <td><span class="center-block padding-5 label label-warning">Pending</span></td>
+                                    </tr>
+                                    <tr class="odd" role="row">
+                                        <td>104</td>
+                                        <td>210-743-6103</td>
+                                        <td>2016/12/09</td>
+                                        <td>2016/08/19</td>
+                                        <td>$18.25</td>
+                                        <td>320</td>
+                                        <td>35411</td>
+                                        <td><span class="center-block padding-5 label label-success">Delivered</span></td>
+                                    </tr>
+                                    <tr class="even" role="row">
+                                        <td>105</td>
+                                        <td>231-914-0557</td>
+                                        <td>2016/07/17</td>
+                                        <td>2015/01/29</td>
+                                        <td>$41.59</td>
+                                        <td>120</td>
+                                        <td>50522</td>
+                                        <td><span class="center-block padding-5 label label-success">Delivered</span></td>
+                                    </tr>
+                                    <tr class="odd" role="row">
+                                        <td>106</td>
+                                        <td>664-358-7649</td>
+                                        <td>2015/10/30</td>
+                                        <td>2015/07/12</td>
+                                        <td>$51.16</td>
+                                        <td>64</td>
+                                        <td>33128</td>
+                                        <td><span class="center-block padding-5 label label-success">Delivered</span></td>
+                                    </tr>
+                                    <tr class="even" role="row">
+                                        <td>107</td>
+                                        <td>564-170-5735</td>
+                                        <td>2015/06/10</td>
+                                        <td>2015/11/13</td>
+                                        <td>$76.05</td>
+                                        <td>420</td>
+                                        <td>33123</td>
+                                        <td><span class="center-block padding-5 label label-success">Complete</span></td>
+                                    </tr>
+                                    <tr class="odd" role="row">
+                                        <td>108</td>
+                                        <td>262-460-2718</td>
+                                        <td>2015/02/10</td>
+                                        <td>2015/07/22</td>
+                                        <td>$81.92</td>
+                                        <td>24</td>
+                                        <td>33012</td>
+                                        <td><span class="center-block padding-5 label label-default">Incomplete</span></td>
+                                    </tr>
+                                    <tr class="even" role="row">
+                                        <td>109</td>
+                                        <td>481-983-9286</td>
+                                        <td>2015/09/20</td>
+                                        <td>2015/03/06</td>
+                                        <td>$89.37</td>
+                                        <td>680</td>
+                                        <td>33256</td>
+                                        <td><span class="center-block padding-5 label label-info">Refunded</span></td>
+                                    </tr>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th data-class="expand"><i class="fa fa-fw fa-gift txt-color-blue hidden-md hidden-sm hidden-xs"></i> Order ID</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-folder txt-color-blue hidden-md hidden-sm hidden-xs"></i> Custumer PO</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i> Purchase Date</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i> Delivery</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-money txt-color-blue hidden-md hidden-sm hidden-xs"></i> Base Price</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-dropbox txt-color-blue hidden-md hidden-sm hidden-xs"></i> Qty. Order</th>
+                                        <th data-hide="phone"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Postal/Zip</th>
+                                        <th class="text-right">Status</th>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+
+    </section>
+    <!-- end widget grid -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    <img src="/content/img/logo.png" width="150" alt="SmartAdmin">
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+
+                <form id="checkout-form" class="smart-form" novalidate="novalidate">
+
+                    <fieldset style="border:0 none;">
+                        @*<div class="category-title"><a class="text-uppercase" name="Company_Category1">General</a></div>*@
+                        <h3 class="text-on-pannel text-primary"><strong> General </strong></h3>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <section class="col col-4">
+                                <label style="font-weight: bold;">Role Code</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-building-o"></i>
+                                    <input type="text" name="rolecode" placeholder="Role Code">
+                                </label>
+                            </section>
+                            <section class="col col-lg-8">
+                                <label style="font-weight: bold;">Role Name</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-building-o"></i>
+                                    <input type="text" name="rolename" placeholder="Role Name">
+                                </label>
+                            </section>
+
+                        </div>
+
+                        <div class="row">
+                            <section class="col col-lg-12">
+                                <label style="font-weight: bold;">Role Description</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-building-o"></i>
+                                    <input type="text" name="roledesc" placeholder="Role Description">
+                                </label>
+                            </section>
+                        </div>
+                    </fieldset>
+
+                    <footer class="modal-footer">
+                        <button type="submit" class="btn btn-success btn-sm">Save</button>
+                        <button type="submit" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+                    </footer>
+                </form>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+    <script type="text/javascript">
+
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+        $(document).ready(function () {
+
+            /* // DOM Position key index //
+
+            l - Length changing (dropdown)
+            f - Filtering input (search)
+            t - The Table! (datatable)
+            i - Information (records)
+            p - Pagination (paging)
+            r - pRocessing
+            < and > - div elements
+            <"#id" and > - div with an id
+            <"class" and > - div with a class
+            <"#id.class" and > - div with an id and class
+
+            Also see: http://legacy.datatables.net/usage/features
+            */
+
+            /* BASIC ;*/
+            var responsiveHelper_dt_basic = undefined;
+            var responsiveHelper_datatable_fixed_column = undefined;
+            var responsiveHelper_datatable_col_reorder = undefined;
+            var responsiveHelper_datatable_tabletools = undefined;
+
+            var breakpointDefinition = {
+                tablet: 1024,
+                phone: 480
+            };
+
+            $('#dt_basic').dataTable({
+                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>" +
+                "t" +
+                "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+                "autoWidth": true,
+                "preDrawCallback": function () {
+                    // Initialize the responsive datatables helper once.
+                    if (!responsiveHelper_dt_basic) {
+                        responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+                    }
+                },
+                "rowCallback": function (nRow) {
+                    responsiveHelper_dt_basic.createExpandIcon(nRow);
+                },
+                "drawCallback": function (oSettings) {
+                    responsiveHelper_dt_basic.respond();
+                }
+            });
+
+            /* END BASIC */
+
+            /* COLUMN FILTER  */
+            var otable = $('#datatable_fixed_column').DataTable({
+                //"bFilter": false,
+                //"bInfo": false,
+                //"bLengthChange": false
+                //"bAutoWidth": false,
+                "bPaginate": true,
+                //"bStateSave": true // saves sort state using localStorage
+                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>" +
+                "t" +
+                "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+                "autoWidth": true,
+                "preDrawCallback": function () {
+                    // Initialize the responsive datatables helper once.
+                    if (!responsiveHelper_datatable_fixed_column) {
+                        responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+                    }
+                },
+                "rowCallback": function (nRow) {
+                    responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+                },
+                "drawCallback": function (oSettings) {
+                    responsiveHelper_datatable_fixed_column.respond();
+                }
+
+            });
+
+            // custom toolbar
+            $("div.toolbar").html('<div class="text-right"><img src="/Content/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+
+            // Apply the filter
+            $("#datatable_fixed_column thead th input[type=text]").on('keyup change', function () {
+
+                otable
+                    .column($(this).parent().index() + ':visible')
+                    .search(this.value)
+                    .draw();
+
+            });
+            /* END COLUMN FILTER */
+
+            /* COLUMN SHOW - HIDE */
+            $('#datatable_col_reorder').dataTable({
+                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'C>r>" +
+                "t" +
+                "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+                "autoWidth": true,
+                "preDrawCallback": function () {
+                    // Initialize the responsive datatables helper once.
+                    if (!responsiveHelper_datatable_col_reorder) {
+                        responsiveHelper_datatable_col_reorder = new ResponsiveDatatablesHelper($('#datatable_col_reorder'), breakpointDefinition);
+                    }
+                },
+                "rowCallback": function (nRow) {
+                    responsiveHelper_datatable_col_reorder.createExpandIcon(nRow);
+                },
+                "drawCallback": function (oSettings) {
+                    responsiveHelper_datatable_col_reorder.respond();
+                }
+            });
+
+            /* END COLUMN SHOW - HIDE */
+
+            /* TABLETOOLS */
+            $('#datatable_tabletools').dataTable({
+
+                // Tabletools options:
+                //   https://datatables.net/extensions/tabletools/button_options
+                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" +
+                "t" +
+                "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+                "oTableTools": {
+                    "aButtons": [
+                        "copy",
+                        "csv",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sTitle": "SmartAdmin_PDF",
+                            "sPdfMessage": "SmartAdmin PDF Export",
+                            "sPdfSize": "letter"
+                        },
+                        {
+                            "sExtends": "print",
+                            "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+                        }
+                    ],
+                    "sSwfPath": "/Scripts/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+                },
+                "autoWidth": true,
+                "preDrawCallback": function () {
+                    // Initialize the responsive datatables helper once.
+                    if (!responsiveHelper_datatable_tabletools) {
+                        responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
+                    }
+                },
+                "rowCallback": function (nRow) {
+                    responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+                },
+                "drawCallback": function (oSettings) {
+                    responsiveHelper_datatable_tabletools.respond();
+                }
+            });
+
+            /* END TABLETOOLS */
+
+        })
+
+    </script>
+}

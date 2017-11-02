@@ -1,0 +1,86 @@
+﻿    <!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+    <!-- User info -->
+    @{ Html.RenderPartial("_CurrentUser"); }
+    <!-- end user info -->
+    <!-- NAVIGATION : This navigation is also responsive
+
+    To make this navigation dynamic please make sure to link the node
+    (the reference to the nav > ul) after page load. Or the navigation
+    will not initialize.
+    -->
+    <nav>
+        <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+        Please note that these links work a bit different than
+        traditional href="" links. See documentation for details.
+        -->
+
+        <ul>
+            <li class="@Html.RouteIf("index", "active")">
+                <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("index", "active")">
+                        <a href="@Url.Action("index", "home")" title="Dashboard"><span class="menu-item-parent">Analytics Dashboard</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="@Html.RouteIf("datatables", "active")">
+                <a href="#"><i class="fa fa-lg fa-fw fa-sitemap"></i> <span class="menu-item-parent">UDT</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("Customers", "active")">
+                        <a href="@Url.Action("Customers", "Customers")"><i class="fa fa-money"></i> Customers</a>
+                    </li>
+
+                    <li class="@Html.RouteIf("Products", "active")">
+                        <a href="@Url.Action("Products", "Products")"><i class="fa fa-gift"></i> Products</a>
+                    </li>
+
+                    <li class="@Html.RouteIf("Suppliers", "active")">
+                        <a href="@Url.Action("Suppliers", "Suppliers")"><i class="fa fa-group"></i> Suppliers</a>
+                    </li>
+
+                    <li class="@Html.RouteIf("Shippers", "active")">
+                        <a href="@Url.Action("Shippers", "Shippers")"><i class="fa fa-truck"></i> Carriers</a>
+                    </li>
+
+                    <li class="@Html.RouteIf("Categories", "active")">
+                        <a href="@Url.Action("Categories", "Categories")"><i class="fa fa-folder-open"></i> Categories</a>
+                    </li>
+
+                    <li class="@Html.RouteIf("Orders", "active")">
+                        <a href="@Url.Action("Orders", "Orders")"><i class="fa fa-shopping-cart"></i> Orders</a>
+                    </li>
+
+                    <li class="@Html.RouteIf("Territories", "active")">
+                        <a href="@Url.Action("Territories", "Territories")"><i class="fa fa-flag-checkered"></i> Territories</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.RouteIf("forms", "active")">
+                <a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">Adminstration</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("Employees", "active")">
+                        <a href="@Url.Action("Index", "Employees")"><i class="fa fa-group"></i> Employees</a>
+                    </li>
+
+                    <li class="@Html.RouteIf("Roles", "active")">
+                        <a href="@Url.Action("Roles", "Roles")"><i class="fa fa-lock"></i> Roles</a>
+                    </li>
+
+
+                    <li class="@Html.RouteIf("datatables", "active")">
+                        <a href="@Url.Action("datatables", "forms")"><i class="fa fa-user"></i> User Management</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+
+</aside>
+<!-- END NAVIGATION -->
