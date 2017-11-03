@@ -1117,17 +1117,26 @@
     <Compile Include="Areas\Landing\Controllers\LandingController.cs" />
     <Compile Include="Areas\Landing\LandingAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AggrementTypesController.cs" />
+    <Compile Include="Controllers\BillablesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MultipleButtonAttribute.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
+    <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\TerritoriesController.cs" />
+    <Compile Include="Controllers\TimeDetailsController.cs" />
+    <Compile Include="Controllers\TimeHeadersController.cs" />
+    <Compile Include="Controllers\WorkRolesController.cs" />
+    <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1150,6 +1159,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\img\realestate\thumbs\" />
+    <Folder Include="Views\AggrementTypes\" />
+    <Folder Include="Views\Billables\" />
+    <Folder Include="Views\Departments\" />
+    <Folder Include="Views\Staffs\" />
+    <Folder Include="Views\TimeDetails\" />
+    <Folder Include="Views\TimeHeaders\" />
+    <Folder Include="Views\WorkRoles\" />
+    <Folder Include="Views\WorkTypes\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
