@@ -109,5 +109,37 @@ namespace SmartAdminMvc.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
+        [HttpGet]        
+        public ActionResult GetTimeSheetDetails(int UserID)
+        {
+            var result = new List<TimeSheet>();
+
+            result.Add(new TimeSheet() {
+                Year = 2017,
+                Period = 43,
+                DateFrom = new DateTime(2017, 10, 22),
+                DateTo = new DateTime(2017, 10, 28),
+                Status =  "Approaved by Tier 1",
+                Hours =  45.50,
+                DeadLine =  new DateTime(2017,10,20),
+                Day2 = new TimeSpan(9,5,0) 
+        });
+
+
+            result.Add(new TimeSheet()
+            {
+                Year = 2017,
+                Period = 43,
+                DateFrom = new DateTime(2017, 10, 15),
+                DateTo = new DateTime(2017, 10, 21),
+                Status = "Approaved by Tier 1",
+                Hours = 45.50,
+                DeadLine = new DateTime(2017, 10, 20),
+                Day3 = new TimeSpan(9, 5, 0)
+            });
+
+            return new JsonResult { Data = result };
+        }
+
     }
 }
