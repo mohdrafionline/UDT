@@ -1,6 +1,7 @@
 ﻿using SmartAdminMvc.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +17,7 @@ namespace SmartAdminMvc.Controllers
             return View("Index", model);
             //return View();
         }
+
 
         public ActionResult GetStaff(Staff staff)
         {
@@ -47,6 +49,52 @@ namespace SmartAdminMvc.Controllers
             bool status = false;
             if (ModelState.IsValid)
             {
+                //get files
+
+                if (Request.Files.AllKeys.Contains("StaffPhoto[]"))
+                {
+                    HttpPostedFileBase file = Request.Files["StaffPhoto[]"];
+                    //Save file content goes here
+                    var guid = Guid.NewGuid();
+                    string profilePicName = guid + file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}userfiles\\", Server.MapPath(@"\")));
+
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "StaffPhoto");
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, guid + file.FileName);
+                        file.SaveAs(path);
+                        staff.StaffPhoto = System.IO.File.ReadAllBytes(path);
+                    }
+                }
+                if (Request.Files.AllKeys.Contains("Insurance[]"))
+                {
+                    HttpPostedFileBase file = Request.Files["Insurance[]"];
+                    //Save file content goes here
+                    var guid = Guid.NewGuid();
+                    string profilePicName = guid + file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}userfiles\\", Server.MapPath(@"\")));
+
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "W9Forms");
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, guid + file.FileName);
+                        file.SaveAs(path);
+                        staff.W9Form = System.IO.File.ReadAllBytes(path);
+                    }
+                }
                 using (var db = new DBEntity())
                 {
                     if (staff.StaffID > 0)
@@ -55,34 +103,37 @@ namespace SmartAdminMvc.Controllers
                         var v = db.Staffs.Where(a => a.StaffID == staff.StaffID).FirstOrDefault();
                         if (v != null)
                         {
-                            v.StaffID = staff.StaffID;
-                            v.UserID = staff.UserID;
-                            v.DepartmentID = staff.DepartmentID;
-                            v.UserID = staff.UserID;
-                            v.DepartmentID = staff.DepartmentID;
-                            v.PositionID = staff.PositionID;
-                            v.Title = staff.Title;
-                            v.HireDate = staff.HireDate;
                             v.Address = staff.Address;
+                            v.BirthDate = staff.BirthDate;
                             v.City = staff.City;
-                            v.Region = staff.Region;
-                            v.PostalCode = staff.PostalCode;
-                            v.Phone = staff.Phone;
+                            v.Contractor = staff.Contractor;
+                            v.Country = staff.Country;
+                            v.DepartmentID = staff.DepartmentID;
+                            v.EmailID = staff.EmailID;
                             v.Extension = staff.Extension;
-                            v.TerminationDate = staff.TerminationDate;
+                            v.FirstName = staff.FirstName;
+                            v.LastName = staff.LastName;
+                            v.MobilePhone = staff.MobilePhone;
+                            v.Password = staff.Password;
+                            v.MobilePhone = staff.MobilePhone;
                             v.Photo = staff.Photo;
+                            v.PostalCode = staff.PostalCode;
+                            v.Region = staff.Region;
+                            v.StaffNumber = staff.StaffNumber;
+                            v.StaffPhoto = staff.StaffPhoto;
+                            v.TerminationDate = staff.TerminationDate;
+                            v.W9Form = staff.W9Form;
                         }
                     }
                     else
                     {
-                        //Save
                         db.Staffs.Add(staff);
                     }
                     db.SaveChanges();
                     status = true;
                 }
             }
-            return new JsonResult { Data = new { status = status } };
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

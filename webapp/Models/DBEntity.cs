@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-
+using SmartAdminMvc.DBModel;
 
 namespace SmartAdminMvc.Models
 {
@@ -20,6 +20,9 @@ namespace SmartAdminMvc.Models
         public DbSet<WorkType> WorkTypes { get; set; }
         public DbSet<Billable> Billables { get; set; }
         public DbSet<AggrementType> AggrementTypes { get; set; }
+        public DbSet<Country> Country { get; set; }
+        public DbSet<State> State { get; set; }
+        public DbSet<City> City { get; set; }
     }
 
    
