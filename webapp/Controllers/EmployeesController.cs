@@ -27,6 +27,7 @@ namespace SmartAdminMvc.Controllers
                 return Json(new { data = employ }, JsonRequestBehavior.AllowGet);
             }
         }
+     
 
         [HttpGet]
         public ActionResult Save(int id)

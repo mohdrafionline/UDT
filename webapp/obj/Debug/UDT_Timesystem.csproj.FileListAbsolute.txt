@@ -58,3 +58,4 @@ D:\Projects\UDT_GIT\webapp\obj\Debug\SmartAdminMvc.pdb
 D:\Projects\UDT_GIT\webapp\obj\Debug\SmartAdminMvc.Migrations.initial.resources
 D:\Projects\UDT_GIT\webapp\obj\Debug\UDT_Timesystem.csproj.GenerateResource.Cache
 D:\Projects\UDT_GIT\webapp\obj\Debug\SmartAdminMvc.Migrations.changes.resources
+D:\Projects\UDT_GIT\webapp\obj\Debug\SmartAdminMvc.Migrations.editstaff.resources

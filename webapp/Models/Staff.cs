@@ -28,9 +28,9 @@ namespace SmartAdminMvc.Models
         public int Country { get; set; }
         public string Contractor { get; set; }
 
-        public byte[] W9Form { get; set; }
+        public string W9Form { get; set; }
 
-        public byte[] StaffPhoto { get; set; }
+        public string StaffPhoto { get; set; }
 
         public string StaffNumber { get; set; }
         public string JobTitle { get; set; }

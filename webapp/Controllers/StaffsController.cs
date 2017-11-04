@@ -23,10 +23,19 @@ namespace SmartAdminMvc.Controllers
         {
             using (var db = new DBEntity())
             {
-                //var employ = (from s in db.TblEmployees where s.FirstName == employees.FirstName select s).ToList();
                 var result = db.Staffs.OrderBy(a => a.Title).ToList();
 
                 return Json(new { data = result }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetStaffbyId(int id)
+        {
+            using (var db = new DBEntity())
+            {
+                var v = db.Staffs.Where(a => a.StaffID == id).FirstOrDefault();
+                return Json(v);
             }
         }
 
@@ -55,44 +64,38 @@ namespace SmartAdminMvc.Controllers
                 {
                     HttpPostedFileBase file = Request.Files["StaffPhoto[]"];
                     //Save file content goes here
-                    var guid = Guid.NewGuid();
-                    string profilePicName = guid + file.FileName;
+                    string fileName = "";
+                    Random random = new Random();
+                    string randomname = random.Next().ToString();
                     if (file != null && file.ContentLength > 0)
                     {
-                        var originalDirectory = new DirectoryInfo(string.Format("{0}userfiles\\", Server.MapPath(@"\")));
-
-                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "StaffPhoto");
-
-                        bool isExists = System.IO.Directory.Exists(pathString);
-
+                        var filePath = Server.MapPath("~/files/");
+                        bool isExists = System.IO.Directory.Exists(filePath);
                         if (!isExists)
-                            System.IO.Directory.CreateDirectory(pathString);
-
-                        var path = string.Format("{0}\\{1}", pathString, guid + file.FileName);
+                            System.IO.Directory.CreateDirectory(filePath);
+                        fileName = randomname + file.FileName;
+                        var path = string.Format("{0}\\{1}", filePath, fileName);
                         file.SaveAs(path);
-                        staff.StaffPhoto = System.IO.File.ReadAllBytes(path);
+                        staff.StaffPhoto = "/files/" + fileName;
                     }
                 }
                 if (Request.Files.AllKeys.Contains("Insurance[]"))
                 {
                     HttpPostedFileBase file = Request.Files["Insurance[]"];
                     //Save file content goes here
-                    var guid = Guid.NewGuid();
-                    string profilePicName = guid + file.FileName;
+                    string fileName = "";
+                    Random random = new Random();
+                    string randomname = random.Next().ToString();
                     if (file != null && file.ContentLength > 0)
                     {
-                        var originalDirectory = new DirectoryInfo(string.Format("{0}userfiles\\", Server.MapPath(@"\")));
-
-                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "W9Forms");
-
-                        bool isExists = System.IO.Directory.Exists(pathString);
-
+                        var filePath = Server.MapPath("~/files/");
+                        bool isExists = System.IO.Directory.Exists(filePath);
                         if (!isExists)
-                            System.IO.Directory.CreateDirectory(pathString);
-
-                        var path = string.Format("{0}\\{1}", pathString, guid + file.FileName);
+                            System.IO.Directory.CreateDirectory(filePath);
+                        fileName = randomname + file.FileName;
+                        var path = string.Format("{0}\\{1}", filePath, fileName);
                         file.SaveAs(path);
-                        staff.W9Form = System.IO.File.ReadAllBytes(path);
+                        staff.W9Form = "/files/" + fileName;
                     }
                 }
                 using (var db = new DBEntity())
@@ -120,9 +123,11 @@ namespace SmartAdminMvc.Controllers
                             v.PostalCode = staff.PostalCode;
                             v.Region = staff.Region;
                             v.StaffNumber = staff.StaffNumber;
-                            v.StaffPhoto = staff.StaffPhoto;
+                            if (staff.StaffPhoto != null)
+                                v.StaffPhoto = staff.StaffPhoto;
                             v.TerminationDate = staff.TerminationDate;
-                            v.W9Form = staff.W9Form;
+                            if (staff.W9Form != null)
+                                v.W9Form = staff.W9Form;
                         }
                     }
                     else
@@ -157,6 +162,24 @@ namespace SmartAdminMvc.Controllers
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult DeleteStaff(int id)
+        {
+            bool status = false;
+            using (var db = new DBEntity())
+            {
+                var v = db.Staffs.Where(a => a.StaffID == id).FirstOrDefault();
+                if (v != null)
+                {
+                    db.Staffs.Remove(v);
+                    db.SaveChanges();
+                    status = true;
+                }
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteStaffByID(int id)
         {
             bool status = false;
             using (var db = new DBEntity())

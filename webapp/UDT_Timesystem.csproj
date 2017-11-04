@@ -1152,6 +1152,10 @@
     <Compile Include="Migrations\201711040855077_changes.Designer.cs">
       <DependentUpon>201711040855077_changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711041201026_editstaff.cs" />
+    <Compile Include="Migrations\201711041201026_editstaff.Designer.cs">
+      <DependentUpon>201711041201026_editstaff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AggrementType.cs" />
@@ -1175,6 +1179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\img\realestate\thumbs\" />
+    <Folder Include="files\" />
     <Folder Include="Views\AggrementTypes\" />
     <Folder Include="Views\Billables\" />
     <Folder Include="Views\Departments\" />
@@ -1189,6 +1194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711040855077_changes.resx">
       <DependentUpon>201711040855077_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711041201026_editstaff.resx">
+      <DependentUpon>201711041201026_editstaff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
