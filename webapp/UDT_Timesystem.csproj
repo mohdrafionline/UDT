@@ -1172,6 +1172,7 @@
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\TimeDetail.cs" />
     <Compile Include="Models\TimeHeader.cs" />
+    <Compile Include="Models\TimeSheet.cs" />
     <Compile Include="Models\WorkRole.cs" />
     <Compile Include="Models\WorkType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

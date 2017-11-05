@@ -12,7 +12,7 @@ namespace SmartAdminMvc.Models
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public String Status { get; set; }
-        public double Hours { get; set; }
+        public TimeSpan Hours { get; set; }
         public DateTime DeadLine { get; set; }
         public TimeSpan Day1 { get; set; }
         public TimeSpan Day2 { get; set; }

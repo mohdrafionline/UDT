@@ -1,9 +1,11 @@
 ﻿using SmartAdminMvc.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace SmartAdminMvc.Controllers
 {
@@ -113,33 +115,145 @@ namespace SmartAdminMvc.Controllers
         public ActionResult GetTimeSheetDetails(int UserID)
         {
             var result = new List<TimeSheet>();
-
-            result.Add(new TimeSheet() {
-                Year = 2017,
-                Period = 43,
-                DateFrom = new DateTime(2017, 10, 22),
-                DateTo = new DateTime(2017, 10, 28),
-                Status =  "Approaved by Tier 1",
-                Hours =  45.50,
-                DeadLine =  new DateTime(2017,10,20),
-                Day2 = new TimeSpan(9,5,0) 
-        });
-
-
-            result.Add(new TimeSheet()
+                        
+            using (var db = new DBEntity())
             {
-                Year = 2017,
-                Period = 43,
-                DateFrom = new DateTime(2017, 10, 15),
-                DateTo = new DateTime(2017, 10, 21),
-                Status = "Approaved by Tier 1",
-                Hours = 45.50,
-                DeadLine = new DateTime(2017, 10, 20),
-                Day3 = new TimeSpan(9, 5, 0)
-            });
+                var weekStartDates = db.TimeHeaders.Where(x => x.UserID == UserID).GroupBy(i => i.TimeDate.StartOfWeek(DayOfWeek.Sunday)).Select(g=> new { dt = g.Key});
 
+                foreach ( var weekStartDate in weekStartDates)
+                {
+                   var timeheaders =  db.TimeHeaders.Where(x => DateTime.Compare(x.TimeDate, weekStartDate.dt) >= 0 && DateTime.Compare(x.TimeDate, weekStartDate.dt.AddDays(7)) <= 0);
+                    var timesheetObj = new TimeSheet();
+                    var timeDetail = new List<TimeDetail>();
+
+                    foreach (var timeHeader in timeheaders)
+                    {
+                           timeDetail.AddRange( db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+
+                    timesheetObj.Year = weekStartDate.dt.Year;
+                    timesheetObj.Period = GetWeekNumber(weekStartDate.dt);
+                    timesheetObj.DateFrom = weekStartDate.dt;
+                    timesheetObj.DateTo = weekStartDate.dt.AddDays(7);
+                    timesheetObj.Status = ""; // This needs to be added
+                    timesheetObj.Hours = GetTotalTime(timeDetail);
+                    timesheetObj.DeadLine = DateTime.Now;  // need to ask
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt);
+                    timeDetail = new List<TimeDetail>();
+                    foreach (var timeHeader in timeheaders)
+                    {
+                        timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+                    
+                    timesheetObj.Day1 = GetTotalTime(timeDetail);
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(1) );
+                    timeDetail = new List<TimeDetail>();
+                    foreach (var timeHeader in timeheaders)
+                    {
+                        timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+
+
+                    timesheetObj.Day2 = GetTotalTime(timeDetail);
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(2));
+                    timeDetail = new List<TimeDetail>();
+                    foreach (var timeHeader in timeheaders)
+                    {
+                        timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+
+                    timesheetObj.Day3 = GetTotalTime(timeDetail);
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(3));
+                    timeDetail = new List<TimeDetail>();
+                    foreach (var timeHeader in timeheaders)
+                    {
+                        timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+
+                    timesheetObj.Day4 = GetTotalTime(timeDetail);
+
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(4));
+                    timeDetail = new List<TimeDetail>();
+                    foreach (var timeHeader in timeheaders)
+                    {
+                        timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+
+                    timesheetObj.Day5 = GetTotalTime(timeDetail);
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(5));
+                    timeDetail = new List<TimeDetail>();
+                    foreach (var timeHeader in timeheaders)
+                    {
+                        timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+
+                    timesheetObj.Day6 = GetTotalTime(timeDetail);
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(6));
+                    timeDetail = new List<TimeDetail>();
+                    foreach (var timeHeader in timeheaders)
+                    {
+                        timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
+                    }
+
+                    timesheetObj.Day7 = GetTotalTime(timeDetail);
+
+                    result.Add(timesheetObj);
+                }
+            }
             return new JsonResult { Data = result };
         }
 
+        public int GetWeekNumber(DateTime dt)
+        {
+            CultureInfo ciCurr = CultureInfo.CurrentCulture;
+            int weekNum = ciCurr.Calendar.GetWeekOfYear(dt, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
+            return weekNum;
+        }
+
+        private TimeSpan GetTotalTime(List<TimeDetail> timedetails) {
+
+            var timespan = new TimeSpan();
+
+            foreach ( var timedetail in timedetails)
+            {
+                timespan.Add(timedetail.TimeOut.Subtract(timedetail.TimeIn));
+            }           
+            return timespan;
+        }
+
+        private TimeSpan GetTotalTime(List<TimeDetail> timedetails, DateTime dt)
+        {
+
+            var timespan = new TimeSpan();
+
+            foreach (var timedetail in timedetails)
+            {
+                timespan.Add(timedetail.TimeOut.Subtract(timedetail.TimeIn));
+            }
+            return timespan;
+        }
+
     }
+
+
+    public static class DateTimeExtensions
+    {
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = dt.DayOfWeek - startOfWeek;
+            if (diff < 0)
+            {
+                diff += 7;
+            }
+            return dt.AddDays(-1 * diff).Date;
+        }
+    }
+
 }
