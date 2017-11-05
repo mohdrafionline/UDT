@@ -1093,6 +1093,7 @@
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Employees\Save.cshtml" />
     <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\TimeDetails\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1144,17 +1145,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\DropdownListHelper.cs" />
-    <Compile Include="Migrations\201711040602507_initial.cs" />
-    <Compile Include="Migrations\201711040602507_initial.Designer.cs">
-      <DependentUpon>201711040602507_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711040855077_changes.cs" />
-    <Compile Include="Migrations\201711040855077_changes.Designer.cs">
-      <DependentUpon>201711040855077_changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711041201026_editstaff.cs" />
-    <Compile Include="Migrations\201711041201026_editstaff.Designer.cs">
-      <DependentUpon>201711041201026_editstaff.cs</DependentUpon>
+    <Compile Include="Migrations\201711051654492_1024.cs" />
+    <Compile Include="Migrations\201711051654492_1024.Designer.cs">
+      <DependentUpon>201711051654492_1024.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1173,6 +1166,7 @@
     <Compile Include="Models\TimeDetail.cs" />
     <Compile Include="Models\TimeHeader.cs" />
     <Compile Include="Models\TimeSheet.cs" />
+    <Compile Include="Models\TimeViewModel.cs" />
     <Compile Include="Models\WorkRole.cs" />
     <Compile Include="Models\WorkType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1184,20 +1178,13 @@
     <Folder Include="Views\AggrementTypes\" />
     <Folder Include="Views\Billables\" />
     <Folder Include="Views\Departments\" />
-    <Folder Include="Views\TimeDetails\" />
     <Folder Include="Views\TimeHeaders\" />
     <Folder Include="Views\WorkRoles\" />
     <Folder Include="Views\WorkTypes\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711040602507_initial.resx">
-      <DependentUpon>201711040602507_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711040855077_changes.resx">
-      <DependentUpon>201711040855077_changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711041201026_editstaff.resx">
-      <DependentUpon>201711041201026_editstaff.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711051654492_1024.resx">
+      <DependentUpon>201711051654492_1024.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

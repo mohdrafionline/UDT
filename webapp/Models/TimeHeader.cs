@@ -16,5 +16,7 @@ namespace SmartAdminMvc.Models
         public DateTime TimeDate { get; set; }
         public int TimeDetailID { get; set; }
         public int AggrementTypeID { get; set; }
+
+        public bool Overnight { get; set; }
     }
 }

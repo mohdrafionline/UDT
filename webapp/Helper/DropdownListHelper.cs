@@ -39,6 +39,21 @@ namespace SmartAdminMvc.Helpers
             });
             return selectItems;
         }
+        public static List<SelectListItem> GetCompanyList()
+        {
+            List<SelectListItem> selectItems = new List<SelectListItem>();
+            selectItems.Add(new SelectListItem()
+            {
+                Text = "Company1",
+                Value = "Company1"
+            });
+            selectItems.Add(new SelectListItem()
+            {
+                Text = "Company2",
+                Value = "Company2"
+            });
+            return selectItems;
+        }
         public static List<SelectListItem> GetCountryList()
         {
             List<SelectListItem> selectItems = new List<SelectListItem>();
@@ -50,6 +65,30 @@ namespace SmartAdminMvc.Helpers
             }
             return selectItems;
         }
+
+        public static List<SelectListItem> GetWorkList()
+        {
+            List<SelectListItem> selectItems = new List<SelectListItem>();
+            DBEntity dBEntity = new DBEntity();
+            var res = dBEntity.WorkRoles.ToList();
+            foreach (var item in res)
+            {
+                selectItems.Add(new SelectListItem() { Text = item.WorkRoleName, Value = item.WorkRoleID.ToString() });
+            }
+            return selectItems;
+        }
+        public static List<SelectListItem> GetBillableList()
+        {
+            List<SelectListItem> selectItems = new List<SelectListItem>();
+            DBEntity dBEntity = new DBEntity();
+            var res = dBEntity.Billables.ToList();
+            foreach (var item in res)
+            {
+                selectItems.Add(new SelectListItem() { Text = item.BillableName, Value = item.BillableID.ToString() });
+            }
+            return selectItems;
+        }
+
         public static List<SelectListItem> GetDepartmentList()
         {
             List<SelectListItem> selectItems = new List<SelectListItem>();
@@ -65,7 +104,7 @@ namespace SmartAdminMvc.Helpers
         {
             List<SelectListItem> selectItems = new List<SelectListItem>();
             DBEntity dBEntity = new DBEntity();
-            var res = dBEntity.State.Where(e=>e.CountryID==CountryId).ToList();
+            var res = dBEntity.State.Where(e => e.CountryID == CountryId).ToList();
             foreach (var item in res)
             {
                 selectItems.Add(new SelectListItem() { Text = item.StateName, Value = item.StateID.ToString() });
