@@ -44,6 +44,8 @@ namespace SmartAdminMvc.Models
         public string Day6J { get; set; }
         [NotMapped]
         public string Day7J { get; set; }
+        [NotMapped]
+        public int UserID { get; set; }
 
     }
 }

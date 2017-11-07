@@ -189,114 +189,114 @@
                 <div class="modal-body no-padding">
                     @using (Html.BeginForm("SaveTime", "TimeDetails", FormMethod.Post, new { @class = "smart-form", @id = "checkout-form", @enctype = "multipart/form-data" }))
                     {
-                        <fieldset style="border:0 none;">
-                            <div class="row">
-                                @Html.HiddenFor(m => m.TimeDetail.TimeDetailID)
-                                @Html.HiddenFor(m => m.TimeHeader.TimeHeaderID);
-                                @Html.HiddenFor(m => m.TimeHeader.UserID);
-                                <section class="col col-6">
-                                    <label style="font-weight: bold;">Company</label>
-                                    <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeHeader.CustomerID, DropdownListHelper.GetCompanyList(), new { @class = "form-control input-sm", @id = "company" })
-                                    </label>
-                                    <div class="row">
-                                        <section class="col col-6">
-                                            <label style="font-weight: bold;">Date</label>
-                                            <label class="input">
-                                                @Html.TextBoxFor(m => m.TimeHeader.TimeDate, new { @type = "text", @name = "state", @id = "date" })
-                                            </label>
-                                        </section>
-                                        <section class="col col-6">
-                                            <label style="font-weight: bold;"> &nbsp;</label>
-                                            <div class="margin-top-5">
-                                                @Html.CheckBoxFor(m => m.TimeHeader.Overnight, new { @name = "overnight", @id = "overnight" })
-                                                Overnight
-                                            </div>
+                    <fieldset style="border:0 none;">
+                        <div class="row">
+                            @Html.HiddenFor(m => m.TimeHeader.UserID , new { @id="hdnUserID"});
+                            @Html.HiddenFor(m => m.TimeHeader.TimeDate,new { @id="hdnTimeDate"});
+                            <input type="hidden" id="hdnDateFrom" />
+                            <section class="col col-6">
+                                <label style="font-weight: bold;">Company</label>
+                                <label class="input">
+                                    @Html.DropDownListFor(m => m.TimeHeader.CustomerID, DropdownListHelper.GetCompanyList(), new { @class = "form-control input-sm", @id = "company" })
+                                </label>
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label style="font-weight: bold;">Date</label>
+                                        <label class="input">
+                                            @Html.TextBoxFor(m => m.TimeHeader.TimeDate, new { @type = "text", @name = "state", @id = "date" })
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label style="font-weight: bold;"> &nbsp;</label>
+                                        <div class="margin-top-5">
+                                            @Html.CheckBoxFor(m => m.TimeHeader.Overnight, new { @name = "overnight", @id = "overnight" })
+                                            Overnight
+                                        </div>
 
 
-                                        </section>
-                                    </div>
-                                    <label style="font-weight: bold;">Work Role</label>
-                                    <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeHeader.WorkRoleID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "gender" })
-                                    </label>
-                                    <label style="font-weight: bold;">Aggrement</label>
-                                    <label class="input">
-                                        @Html.TextBoxFor(m => m.TimeHeader.Aggrement, new { @type = "text", @name = "aggrement", @placeholder = "Aggrement", @id = "aggrement" })
-                                    </label>
-                                </section>
-                                <section class="col col-6">
-                                    <label style="font-weight: bold;">Member</label>
-                                    <label class="input">
-                                        @Html.TextBoxFor(m => m.TimeHeader.UserID, new { @type = "text", @name = "userid", @placeholder = "Member", @id = "userid" })
-                                    </label>
+                                    </section>
+                                </div>
+                                <label style="font-weight: bold;">Work Role</label>
+                                <label class="input">
+                                    @Html.DropDownListFor(m => m.TimeHeader.WorkRoleID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "gender" })
+                                </label>
+                                <label style="font-weight: bold;">Aggrement</label>
+                                <label class="input">
+                                    @Html.TextBoxFor(m => m.TimeHeader.Aggrement, new { @type = "text", @name = "aggrement", @placeholder = "Aggrement", @id = "aggrement" })
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label style="font-weight: bold;">Member</label>
+                                <label class="input">
+                                    @Html.TextBoxFor(m => m.TimeHeader.UserID, new { @type = "text", @name = "userid", @placeholder = "Member", @id = "userid" })
+                                </label>
 
-                                    <label style="font-weight: bold;">Division</label>
-                                    <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeHeader.DivisonID, DropdownListHelper.GetDepartmentList(), new { @class = "form-control input-sm", @id = "division" })
-                                    </label>
-                                    <label style="font-weight: bold;">Department</label>
-                                    <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeHeader.DivisonID, DropdownListHelper.GetDepartmentList(), new { @class = "form-control input-sm", @id = "department" })
-                                    </label>
-                                </section>
-                            </div>
-                            <h5>Time Details</h5>
+                                <label style="font-weight: bold;">Division</label>
+                                <label class="input">
+                                    @Html.DropDownListFor(m => m.TimeHeader.DivisonID, DropdownListHelper.GetDepartmentList(), new { @class = "form-control input-sm", @id = "division" })
+                                </label>
+                                <label style="font-weight: bold;">Department</label>
+                                <label class="input">
+                                    @Html.DropDownListFor(m => m.TimeHeader.DivisonID, DropdownListHelper.GetDepartmentList(), new { @class = "form-control input-sm", @id = "department" })
+                                </label>
+                            </section>
+                        </div>
+                        <h5>Time Details</h5>
 
-                            <div class="row">
-                                <section class="col col-2">
-                                    <label style="font-weight: bold;">Start Time</label>
-                                    <label class="input">
-                                        @Html.TextBoxFor(m => m.TimeDetail.TimeIn, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "start" })
-                                    </label>
-                                </section>
-                                <section class="col col-2">
-                                    <label style="font-weight: bold;">End Time</label>
-                                    <label class="input">
-                                        @Html.TextBoxFor(m => m.TimeDetail.TimeOut, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "start" })
-                                    </label>
-                                </section>
-                                <section class="col col-2">
-                                    <label style="font-weight: bold;">Deduct</label>
-                                    <label class="input">
-                                        @Html.TextBoxFor(m => m.TimeDetail.TimeDeduct, new { @type = "text", @name = "timededuct", @id = "timededuct" })
-                                    </label>
-                                </section>
-                                <section class="col col-2">
-                                    <label style="font-weight: bold;">Actual Hrs</label>
-                                    <label class="input">
-                                        <input type="text" name="txtActualHours" />
-                                    </label>
-                                </section>
-                                <section class="col col-2">
-                                    <label style="font-weight: bold;">Work Type</label>
-                                    <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeDetail.WorkTypeID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "gender" })
-                                    </label>
-                                </section>
-                                <section class="col col-2">
-                                    <label style="font-weight: bold;">Billable</label>
-                                    <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeDetail.BillableID, DropdownListHelper.GetBillableList(), new { @class = "form-control input-sm", @id = "gender" })
-                                    </label>
-                                </section>
-                            </div>
-                            <div class="row">
-                                <section class="col">
-                                    <label style="font-weight: bold;">Notes</label>
-                                    <label class="input">
-                                        @Html.TextAreaFor(m => m.TimeDetail.Notes, new { @name = "start", @placeholder = "Enter Notes", @id = "start", @rows = "5", @cols = "70" })
-                                    </label>
-                                </section>
+                        <div class="row">
+                            <section class="col col-2">
+                                <label style="font-weight: bold;">Start Time</label>
+                                <label class="input">
+                                    @Html.TextBoxFor(m => m.TimeDetail.TimeIn, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "start" })
+                                </label>
+                            </section>
+                            <section class="col col-2">
+                                <label style="font-weight: bold;">End Time</label>
+                                <label class="input">
+                                    @Html.TextBoxFor(m => m.TimeDetail.TimeOut, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "start" })
+                                </label>
+                            </section>
+                            <section class="col col-2">
+                                <label style="font-weight: bold;">Deduct</label>
+                                <label class="input">
+                                    @Html.TextBoxFor(m => m.TimeDetail.TimeDeduct, new { @type = "text", @name = "timededuct", @id = "timededuct" })
+                                </label>
+                            </section>
+                            <section class="col col-2">
+                                <label style="font-weight: bold;">Actual Hrs</label>
+                                <label class="input">
+                                    <input type="text" name="txtActualHours" />
+                                </label>
+                            </section>
+                            <section class="col col-2">
+                                <label style="font-weight: bold;">Work Type</label>
+                                <label class="input">
+                                    @Html.DropDownListFor(m => m.TimeDetail.WorkTypeID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "gender" })
+                                </label>
+                            </section>
+                            <section class="col col-2">
+                                <label style="font-weight: bold;">Billable</label>
+                                <label class="input">
+                                    @Html.DropDownListFor(m => m.TimeDetail.BillableID, DropdownListHelper.GetBillableList(), new { @class = "form-control input-sm", @id = "gender" })
+                                </label>
+                            </section>
+                        </div>
+                        <div class="row">
+                            <section class="col">
+                                <label style="font-weight: bold;">Notes</label>
+                                <label class="input">
+                                    @Html.TextAreaFor(m => m.TimeDetail.Notes, new { @name = "start", @placeholder = "Enter Notes", @id = "start", @rows = "5", @cols = "70" })
+                                </label>
+                            </section>
 
-                            </div>
+                        </div>
 
 
-                        </fieldset>
-                        <footer class="modal-footer">
-                            <input type="submit" value="Save" name="Save" class="btn btn-success btn-sm" />
-                            <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">Cancel</button>
-                        </footer>
+                    </fieldset>
+                    <footer class="modal-footer">
+                        <input type="submit" value="Save" name="Save" class="btn btn-success btn-sm" />
+                        <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">Cancel</button>
+                    </footer>
 
                     }
 
@@ -482,15 +482,69 @@
 <script type="text/javascript">
     function format(d) {
         // `d` is the original data object for the row
+        debugger;
+        var DateFrom = d.DateFromJ;
+        $("#hdnDateFrom").val(DateFrom);
+        var day1;
+        var day2;
+        var day3;
+        var day4;
+        var day5;
+        var day6;
+        var day7;
 
+        var new_date = moment(DateFrom, "DD-MMM-YYYY").add('days', 1);
+        var day = new_date.format('ddd');
+        var date = new_date.format('DD');
+        var month = new_date.format('MM');
+        day1 = day + "<br/>" + date + "/" + month;
+
+        new_date = moment(DateFrom, "DD-MMM-YYYY").add('days', 2);
+        day = new_date.format('ddd');
+        date = new_date.format('DD');
+        month = new_date.format('MM');
+        day2 = day + "<br/>" + date + "/" + month;
+
+        new_date = moment(DateFrom, "DD-MMM-YYYY").add('days', 3);
+        day = new_date.format('ddd');
+        date = new_date.format('DD');
+        month = new_date.format('MM');
+        day3 = day + "<br/>" + date + "/" + month;
+
+        new_date = moment(DateFrom, "DD-MMM-YYYY").add('days', 4);
+        day = new_date.format('ddd');
+        date = new_date.format('DD');
+        month = new_date.format('MM');
+        day4 = day + "<br/>" + date + "/" + month;
+
+        new_date = moment(DateFrom, "DD-MMM-YYYY").add('days', 5);
+        day = new_date.format('ddd');
+        date = new_date.format('DD');
+        month = new_date.format('MM');
+        day5 = day + "<br/>" + date + "/" + month;
+
+        new_date = moment(DateFrom, "DD-MMM-YYYY").add('days', 6);
+        day = new_date.format('ddd');
+        date = new_date.format('DD');
+        month = new_date.format('MM');
+        day6 = day + "<br/>" + date + "/" + month;
+
+        new_date = moment(DateFrom, "DD-MMM-YYYY").add('days', 7);
+        day = new_date.format('ddd');
+        date = new_date.format('DD');
+        month = new_date.format('MM');
+        day7 = day + "<br/>" + date + "/" + month;
+        $("#hdnUserID").val(d.UserID);
         return '<table  border="1" style="width:80%;margin-left:10%;margin-right:10%;align:center" class="expandertable">' +
-            '<tr><td>Sun 10/29</td><td>Mon 10/29</td><td>Tue 10/29</td><td>Wed 10/29</td><td>Thu 10/29</td><td>Fri 10/29</td><td>Sat 10/29</td><td>Total</td></tr>' +
-            '<tr><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup();"></td><td></td></tr>' +
-            '<tr ><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td></tr>' +
-            '<tr><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr></table > ';
+            '<tr><td>' + day1 + '</td><td>' + day2 + '</td><td>' + day3 + '</td><td>' + day4 + '</td><td>' + day5 + '</td><td>' + day6 + '</td><td>' + day7 + '</td><td>Total</td></tr>' +
+            '<tr><td class="details-control" onclick="ShowTimePopup(1);"></td><td class="details-control" onclick="ShowTimePopup(2);"></td><td class="details-control" onclick="ShowTimePopup(3);"></td><td class="details-control" onclick="ShowTimePopup(4);"></td><td class="details-control" onclick="ShowTimePopup(5);"></td><td class="details-control" onclick="ShowTimePopup(6);"></td><td class="details-control" onclick="ShowTimePopup(7);"></td><td></td></tr>' +
+            '<tr ><td style="background-color:#e0e0e0;">' + d.Day1J + '</td><td style="background-color:#e0e0e0;">' + d.Day2J + '</td><td style="background-color:#e0e0e0;">' + d.Day3J + '</td><td style="background-color:#e0e0e0;">' + d.Day4J + '</td><td style="background-color:#e0e0e0;">' + d.Day5J + '</td><td style="background-color:#e0e0e0;">' + d.Day6J + '</td><td style="background-color:#e0e0e0;">' + d.Day7J + '</td><td style="background-color:#e0e0e0;">' + d.HoursJ + '</td></tr>' +
+            '</table > ';
     }
     function ShowTimePopup(obj) {
-
+        debugger;
+        var new_date = moment($("#hdnDateFrom").val(), "DD-MMM-YYYY").add('days', obj);
+        $("#hdnTimeDate").val(new_date.format("DD-MMM-YYYY"));
         $("#myModal").modal('show');
     }
 </script>

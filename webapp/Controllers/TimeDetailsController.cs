@@ -88,7 +88,32 @@ namespace SmartAdminMvc.Controllers
             {
                 using (var db = new DBEntity())
                 {
-                    if (model.TimeDetail.TimeDetailID > 0 && model.TimeHeader.TimeHeaderID > 0)
+                    if (model.TimeHeader.UserID != null && model.TimeHeader.TimeDate != null)
+                    {
+                        var x = db.TimeHeaders.Where(a => a.UserID == model.TimeHeader.UserID && a.TimeDate==model.TimeHeader.TimeDate).FirstOrDefault();
+                        var v = db.TimeDetails.Where(a => a.TimeDetailID == x.TimeDetailID).FirstOrDefault();
+                        if (v != null)
+                        {
+                            v.TimeIn = model.TimeDetail.TimeIn;
+                            v.TimeOut = model.TimeDetail.TimeOut;
+                            v.TimeDeduct = model.TimeDetail.TimeDeduct;
+                            v.WorkTypeID = model.TimeDetail.WorkTypeID;
+                            v.BillableID = model.TimeDetail.BillableID;
+                            v.Notes = model.TimeDetail.Notes;
+                            x.Aggrement = model.TimeHeader.Aggrement;
+                            x.AggrementTypeID = model.TimeHeader.AggrementTypeID;
+                            x.CustomerID = model.TimeHeader.CustomerID;
+                            x.DivisonID = model.TimeHeader.DivisonID;
+                            x.Overnight = model.TimeHeader.Overnight;
+                            x.TimeDate = model.TimeHeader.TimeDate;
+                            x.TimeDetailID = model.TimeHeader.TimeDetailID;
+                            x.TimeHeaderID = model.TimeHeader.TimeHeaderID;
+                            x.UserID = model.TimeHeader.UserID;
+                            x.WorkRoleID = model.TimeHeader.WorkRoleID;
+                        }
+                        db.SaveChanges();
+                    }
+                    else if (model.TimeDetail.TimeDetailID > 0 && model.TimeHeader.TimeHeaderID > 0)
                     {
                         //Edit
                         var v = db.TimeDetails.Where(a => a.TimeDetailID == model.TimeDetail.TimeDetailID).FirstOrDefault();
@@ -188,7 +213,8 @@ namespace SmartAdminMvc.Controllers
 
                 foreach (var weekStartDate in weekStartDates)
                 {
-                    var timeheaders = db.TimeHeaders.Where(x => DateTime.Compare(x.TimeDate, weekStartDate) >= 0 && DateTime.Compare(x.TimeDate, weekStartDate.AddDays(7)) <= 0);
+                    var baselineDate = weekStartDate.AddDays(7);
+                    var timeheaders = db.TimeHeaders.Where(x => DateTime.Compare(x.TimeDate, weekStartDate) >= 0 && DateTime.Compare(x.TimeDate, baselineDate) <= 0).ToList();
 
                     var timesheetObj = new TimeSheet();
                     var timeDetail = new List<TimeDetail>();
@@ -198,15 +224,21 @@ namespace SmartAdminMvc.Controllers
                         timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
                     }
 
+                    timesheetObj.UserID = UserID;
                     timesheetObj.Year = weekStartDate.Year;
                     timesheetObj.Period = GetWeekNumber(weekStartDate);
                     timesheetObj.DateFrom = weekStartDate;
+                    timesheetObj.DateFromJ = timesheetObj.DateFrom.ToShortDateString();
                     timesheetObj.DateTo = weekStartDate.AddDays(7);
+                    timesheetObj.DateToJ = timesheetObj.DateTo.ToShortDateString();
                     timesheetObj.Status = ""; // This needs to be added
                     timesheetObj.Hours = GetTotalTime(timeDetail);
+                    timesheetObj.HoursJ = timesheetObj.Hours.ToString();
                     timesheetObj.DeadLine = DateTime.Now;  // need to ask
+                    timesheetObj.DeadLineJ = timesheetObj.DeadLine.ToShortDateString();
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate);
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate).ToList();
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -214,9 +246,9 @@ namespace SmartAdminMvc.Controllers
                     }
 
                     timesheetObj.Day1 = GetTotalTime(timeDetail);
-
-
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(1));
+                    timesheetObj.Day1J = timesheetObj.Day1.ToString();
+                    var day1 = weekStartDate.AddDays(1);
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == day1).ToList();
 
 
 
@@ -228,8 +260,9 @@ namespace SmartAdminMvc.Controllers
 
 
                     timesheetObj.Day2 = GetTotalTime(timeDetail);
-
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(2));
+                    timesheetObj.Day2J = timesheetObj.Day2.ToString();
+                    var day2 = weekStartDate.AddDays(2);
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == day2).ToList();
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -237,8 +270,9 @@ namespace SmartAdminMvc.Controllers
                     }
 
                     timesheetObj.Day3 = GetTotalTime(timeDetail);
-
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(3));
+                    timesheetObj.Day3J = timesheetObj.Day3.ToString();
+                    var day3 = weekStartDate.AddDays(3);
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == day3).ToList();
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -246,9 +280,9 @@ namespace SmartAdminMvc.Controllers
                     }
 
                     timesheetObj.Day4 = GetTotalTime(timeDetail);
-
-
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(4));
+                    timesheetObj.Day4J = timesheetObj.Day4.ToString();
+                    var day4 = weekStartDate.AddDays(4);
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == day4).ToList();
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -256,8 +290,9 @@ namespace SmartAdminMvc.Controllers
                     }
 
                     timesheetObj.Day5 = GetTotalTime(timeDetail);
-
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(5));
+                    timesheetObj.Day5J = timesheetObj.Day5.ToString();
+                    var day5 = weekStartDate.AddDays(5);
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == day5).ToList();
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -265,8 +300,9 @@ namespace SmartAdminMvc.Controllers
                     }
 
                     timesheetObj.Day6 = GetTotalTime(timeDetail);
-
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(6));
+                    timesheetObj.Day6J = timesheetObj.Day6.ToString();
+                    var day6 = weekStartDate.AddDays(6);
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == day6).ToList();
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -274,11 +310,13 @@ namespace SmartAdminMvc.Controllers
                     }
 
                     timesheetObj.Day7 = GetTotalTime(timeDetail);
+                    timesheetObj.Day7J = timesheetObj.Day7.ToString();
+
 
                     result.Add(timesheetObj);
                 }
             }
-            return new JsonResult { Data = result };
+            return Json(new { data = result }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -296,7 +334,8 @@ namespace SmartAdminMvc.Controllers
 
             foreach (var timedetail in timedetails)
             {
-                timespan.Add(timedetail.TimeOut.Subtract(timedetail.TimeIn));
+                var time = timedetail.TimeOut.Subtract(timedetail.TimeIn);
+                timespan += time;
             }
             return timespan;
         }
