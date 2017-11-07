@@ -182,11 +182,14 @@ namespace SmartAdminMvc.Controllers
 
             using (var db = new DBEntity())
             {
-                var weekStartDates = db.TimeHeaders.Where(x => x.UserID == UserID).GroupBy(i => i.TimeDate.StartOfWeek(DayOfWeek.Sunday)).Select(g => new { dt = g.Key });
+
+                var weekStartDates = GetWeeklyDates(UserID);// db.TimeHeaders.Where(x => x.UserID == UserID).GroupBy(i => Extensions.StartOfWeek(i.TimeDate,DayOfWeek.Sunday)).Select(g=> new { dt = g.Key});
+
 
                 foreach (var weekStartDate in weekStartDates)
                 {
-                    var timeheaders = db.TimeHeaders.Where(x => DateTime.Compare(x.TimeDate, weekStartDate.dt) >= 0 && DateTime.Compare(x.TimeDate, weekStartDate.dt.AddDays(7)) <= 0);
+                    var timeheaders = db.TimeHeaders.Where(x => DateTime.Compare(x.TimeDate, weekStartDate) >= 0 && DateTime.Compare(x.TimeDate, weekStartDate.AddDays(7)) <= 0);
+
                     var timesheetObj = new TimeSheet();
                     var timeDetail = new List<TimeDetail>();
 
@@ -195,15 +198,15 @@ namespace SmartAdminMvc.Controllers
                         timeDetail.AddRange(db.TimeDetails.Where(x => x.TimeDetailID == timeHeader.TimeDetailID).ToList<TimeDetail>());
                     }
 
-                    timesheetObj.Year = weekStartDate.dt.Year;
-                    timesheetObj.Period = GetWeekNumber(weekStartDate.dt);
-                    timesheetObj.DateFrom = weekStartDate.dt;
-                    timesheetObj.DateTo = weekStartDate.dt.AddDays(7);
+                    timesheetObj.Year = weekStartDate.Year;
+                    timesheetObj.Period = GetWeekNumber(weekStartDate);
+                    timesheetObj.DateFrom = weekStartDate;
+                    timesheetObj.DateTo = weekStartDate.AddDays(7);
                     timesheetObj.Status = ""; // This needs to be added
                     timesheetObj.Hours = GetTotalTime(timeDetail);
                     timesheetObj.DeadLine = DateTime.Now;  // need to ask
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt);
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate);
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -212,7 +215,11 @@ namespace SmartAdminMvc.Controllers
 
                     timesheetObj.Day1 = GetTotalTime(timeDetail);
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(1));
+
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(1));
+
+
+
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -222,7 +229,7 @@ namespace SmartAdminMvc.Controllers
 
                     timesheetObj.Day2 = GetTotalTime(timeDetail);
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(2));
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(2));
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -231,7 +238,7 @@ namespace SmartAdminMvc.Controllers
 
                     timesheetObj.Day3 = GetTotalTime(timeDetail);
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(3));
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(3));
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -241,7 +248,7 @@ namespace SmartAdminMvc.Controllers
                     timesheetObj.Day4 = GetTotalTime(timeDetail);
 
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(4));
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(4));
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -250,7 +257,7 @@ namespace SmartAdminMvc.Controllers
 
                     timesheetObj.Day5 = GetTotalTime(timeDetail);
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(5));
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(5));
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -259,7 +266,7 @@ namespace SmartAdminMvc.Controllers
 
                     timesheetObj.Day6 = GetTotalTime(timeDetail);
 
-                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.dt.AddDays(6));
+                    timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate.AddDays(6));
                     timeDetail = new List<TimeDetail>();
                     foreach (var timeHeader in timeheaders)
                     {
@@ -273,6 +280,7 @@ namespace SmartAdminMvc.Controllers
             }
             return new JsonResult { Data = result };
         }
+
 
         public int GetWeekNumber(DateTime dt)
         {
@@ -305,20 +313,30 @@ namespace SmartAdminMvc.Controllers
             return timespan;
         }
 
-    }
-
-
-    public static class DateTimeExtensions
-    {
-        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        private List<DateTime> GetWeeklyDates(int UserID)
         {
-            int diff = dt.DayOfWeek - startOfWeek;
-            if (diff < 0)
+            List<DateTime> dates = new List<DateTime>();
+
+            using (var db = new DBEntity())
             {
-                diff += 7;
+                var weekStartDates = db.TimeHeaders.Where(x => x.UserID == UserID).Select(x => x.TimeDate).ToList<DateTime>();
+                foreach (var weekStartDate in weekStartDates)
+                {
+                    if (weekStartDate.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        dates.Add(weekStartDate);
+                    }
+                }
+                if (weekStartDates.Count > 0)
+                {
+                    if (weekStartDates[0].DayOfWeek > 0)
+                    {
+                        int days = 0 - weekStartDates[0].DayOfWeek;
+                        dates.Insert(0, weekStartDates[0].AddDays(days * -1));
+                    }
+                }
             }
-            return dt.AddDays(-1 * diff).Date;
+            return dates;
         }
     }
-
 }

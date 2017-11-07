@@ -121,9 +121,6 @@
                                         <th class="hasinput" style="width:8%">
                                             <input type="text" class="form-control" placeholder="Filter Postal Code" />
                                         </th>
-                                        <th class="hasinput" style="width:8%">
-                                            <input type="text" class="form-control" placeholder="Filter Country" />
-                                        </th>
                                         <th style="width:3%;">
                                             <input type="button" class="btn btn-primary btn-xs btn-info" value="Add Time Details" data-toggle="modal" data-target="#myModal" />
                                         </th>
@@ -136,7 +133,6 @@
                                         <th data-hide="phone,tablet">Status</th>
                                         <th data-hide="phone,tablet">Hours</th>
                                         <th data-hide="phone,tablet">Deadline</th>
-                                        <th data-hide="phone,tablet">Edit</th>
                                     </tr>
                                 </thead>
 
@@ -149,7 +145,6 @@
                                         <th data-hide="phone,tablet">Status</th>
                                         <th data-hide="phone,tablet">Hours</th>
                                         <th data-hide="phone,tablet">Deadline</th>
-                                        <th data-hide="phone,tablet">Edit</th>
                                     </tr>
                                 </tfoot>
 
@@ -196,7 +191,7 @@
                     {
                         <fieldset style="border:0 none;">
                             <div class="row">
-                                @Html.HiddenFor(m=>m.TimeDetail.TimeDetailID)
+                                @Html.HiddenFor(m => m.TimeDetail.TimeDetailID)
                                 @Html.HiddenFor(m => m.TimeHeader.TimeHeaderID);
                                 @Html.HiddenFor(m => m.TimeHeader.UserID);
                                 <section class="col col-6">
@@ -217,7 +212,7 @@
                                                 @Html.CheckBoxFor(m => m.TimeHeader.Overnight, new { @name = "overnight", @id = "overnight" })
                                                 Overnight
                                             </div>
-                                         
+
 
                                         </section>
                                     </div>
@@ -270,7 +265,7 @@
                                 <section class="col col-2">
                                     <label style="font-weight: bold;">Actual Hrs</label>
                                     <label class="input">
-                                        <input type="text" name="txtActualHours"/>
+                                        <input type="text" name="txtActualHours" />
                                     </label>
                                 </section>
                                 <section class="col col-2">
@@ -483,16 +478,21 @@
 <script src="~/Scripts/plugin/datatables/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 <script src="~/Scripts/plugin/clockpicker/clockpicker.min.js"></script>
+<script src="~/Scripts/plugin/moment/moment.min.js"></script>
 <script type="text/javascript">
     function format(d) {
         // `d` is the original data object for the row
+
         return '<table  border="1" style="width:80%;margin-left:10%;margin-right:10%;align:center" class="expandertable">' +
             '<tr><td>Sun 10/29</td><td>Mon 10/29</td><td>Tue 10/29</td><td>Wed 10/29</td><td>Thu 10/29</td><td>Fri 10/29</td><td>Sat 10/29</td><td>Total</td></tr>' +
-            '<tr><td class="details-control"></td><td class="details-control"></td><td class="details-control"></td><td class="details-control"></td><td class="details-control"></td><td class="details-control"></td><td class="details-control"></td><td></td></tr>' +
+            '<tr><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup(this);"></td><td class="details-control" onclick="ShowTimePopup();"></td><td></td></tr>' +
             '<tr ><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td><td style="background-color:#e0e0e0;">0.0</td></tr>' +
             '<tr><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr></table > ';
     }
-   
+    function ShowTimePopup(obj) {
+
+        $("#myModal").modal('show');
+    }
 </script>
 <script>
     $(document).ready(function () {
@@ -509,16 +509,12 @@
 
                 { "data": "Year", "autoWidth": true },
                 { "data": "Period", "autoWidth": true },
-                { "data": "DateFrom", "autoWidth": true, "className": 'timeexpander', },
-                { "data": "DateTo", "autoWidth": true, "className": 'timeexpander', },
+                { "data": "DateFromJ", "autoWidth": true, "className": 'timeexpander', },
+                { "data": "DateToJ", "autoWidth": true, "className": 'timeexpander', },
                 { "data": "Status", "autoWidth": true },
-                { "data": "Hours", "autoWidth": true },
-                { "data": "DeadLine", "autoWidth": true },
-                {
-                    "data": "Year", "render": function (data) {
-                        return '<a  class="btn btn-primary btn-xs btn-info" onclick="EditUser(' + data + ');"><i class="fa fa-paste"></i> Edit</a>';
-                    }
-                },
+                { "data": "HoursJ", "autoWidth": true },
+                { "data": "DeadLineJ", "autoWidth": true },
+
                 //{
                 //    "data": "Id", "Width": "20px", "render": function (data) {
                 //        return '<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-xs btn-info"><i class="fa fa-paste"></i> Delete</a>';
