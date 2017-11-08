@@ -118,3 +118,4 @@ C:\Users\Vishal\Source\Repos\UDT\webapp\obj\Debug\SmartAdminMvc.dll
 C:\Users\Vishal\Source\Repos\UDT\webapp\obj\Debug\SmartAdminMvc.pdb
 C:\Users\Vishal\Source\Repos\UDT\webapp\obj\Debug\SmartAdminMvc.Migrations._1024.resources
 C:\Users\Vishal\Source\Repos\UDT\webapp\obj\Debug\UDT_Timesystem.csproj.GenerateResource.Cache
+C:\Users\Vishal\Source\Repos\UDT\webapp\obj\Debug\SmartAdminMvc.Migrations.timentry.resources

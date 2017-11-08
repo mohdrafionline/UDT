@@ -84,70 +84,72 @@ namespace SmartAdminMvc.Controllers
         public ActionResult SaveTime(TimeViewModel model)
         {
             bool status = false;
-            if (ModelState.IsValid)
+
+            using (var db = new DBEntity())
             {
-                using (var db = new DBEntity())
+                if (model.TimeHeader.UserID != null && model.TimeHeader.TimeDate != null)
                 {
-                    if (model.TimeHeader.UserID != null && model.TimeHeader.TimeDate != null)
+
+                    DateTime dt = model.TimeHeader.TimeDate.AddDays(model.DayNo);
+                    if (dt!=null)
                     {
-                        var x = db.TimeHeaders.Where(a => a.UserID == model.TimeHeader.UserID && a.TimeDate==model.TimeHeader.TimeDate).FirstOrDefault();
-                        var v = db.TimeDetails.Where(a => a.TimeDetailID == x.TimeDetailID).FirstOrDefault();
-                        if (v != null)
+                        model.TimeHeader.TimeDate = dt;
+                        var x = db.TimeHeaders.Where(a => a.UserID == model.TimeHeader.UserID && a.TimeDate == model.TimeHeader.TimeDate).FirstOrDefault();
+                        if (x != null)
                         {
-                            v.TimeIn = model.TimeDetail.TimeIn;
-                            v.TimeOut = model.TimeDetail.TimeOut;
-                            v.TimeDeduct = model.TimeDetail.TimeDeduct;
-                            v.WorkTypeID = model.TimeDetail.WorkTypeID;
-                            v.BillableID = model.TimeDetail.BillableID;
-                            v.Notes = model.TimeDetail.Notes;
-                            x.Aggrement = model.TimeHeader.Aggrement;
-                            x.AggrementTypeID = model.TimeHeader.AggrementTypeID;
-                            x.CustomerID = model.TimeHeader.CustomerID;
-                            x.DivisonID = model.TimeHeader.DivisonID;
-                            x.Overnight = model.TimeHeader.Overnight;
-                            x.TimeDate = model.TimeHeader.TimeDate;
-                            x.TimeDetailID = model.TimeHeader.TimeDetailID;
-                            x.TimeHeaderID = model.TimeHeader.TimeHeaderID;
-                            x.UserID = model.TimeHeader.UserID;
-                            x.WorkRoleID = model.TimeHeader.WorkRoleID;
-                        }
-                        db.SaveChanges();
-                    }
-                    else if (model.TimeDetail.TimeDetailID > 0 && model.TimeHeader.TimeHeaderID > 0)
-                    {
-                        //Edit
-                        var v = db.TimeDetails.Where(a => a.TimeDetailID == model.TimeDetail.TimeDetailID).FirstOrDefault();
-                        var x = db.TimeHeaders.Where(a => a.TimeHeaderID == model.TimeHeader.TimeHeaderID).FirstOrDefault();
-                        if (v != null)
-                        {
-                            v.TimeIn = model.TimeDetail.TimeIn;
-                            v.TimeOut = model.TimeDetail.TimeOut;
-                            v.TimeDeduct = model.TimeDetail.TimeDeduct;
-                            v.WorkTypeID = model.TimeDetail.WorkTypeID;
-                            v.BillableID = model.TimeDetail.BillableID;
-                            v.Notes = model.TimeDetail.Notes;
-                            x.Aggrement = model.TimeHeader.Aggrement;
-                            x.AggrementTypeID = model.TimeHeader.AggrementTypeID;
-                            x.CustomerID = model.TimeHeader.CustomerID;
-                            x.DivisonID = model.TimeHeader.DivisonID;
-                            x.Overnight = model.TimeHeader.Overnight;
-                            x.TimeDate = model.TimeHeader.TimeDate;
-                            x.TimeDetailID = model.TimeHeader.TimeDetailID;
-                            x.TimeHeaderID = model.TimeHeader.TimeHeaderID;
-                            x.UserID = model.TimeHeader.UserID;
-                            x.WorkRoleID = model.TimeHeader.WorkRoleID;
+                            var v = db.TimeDetails.Where(a => a.TimeDetailID == x.TimeDetailID).FirstOrDefault();
+                            if (v != null)
+                            {
+                                v.TimeIn = model.TimeDetail.TimeIn;
+                                v.TimeOut = model.TimeDetail.TimeOut;
+                                v.TimeDeduct = model.TimeDetail.TimeDeduct;
+                                v.WorkTypeID = model.TimeDetail.WorkTypeID;
+                                v.BillableID = model.TimeDetail.BillableID;
+                                v.Notes = model.TimeDetail.Notes;
+                                x.Aggrement = model.TimeHeader.Aggrement;
+                                x.AggrementTypeID = model.TimeHeader.AggrementTypeID;
+                                x.CustomerID = model.TimeHeader.CustomerID;
+                                x.DivisonID = model.TimeHeader.DivisonID;
+                                x.Overnight = model.TimeHeader.Overnight;
+                                x.TimeDate = model.TimeHeader.TimeDate;
+                                x.UserID = model.TimeHeader.UserID;
+                                x.WorkRoleID = model.TimeHeader.WorkRoleID;
+                            }
                         }
                         else
                         {
-                            //Save
                             db.TimeDetails.Add(model.TimeDetail);
                             db.SaveChanges();
                             model.TimeHeader.TimeDetailID = model.TimeDetail.TimeDetailID;
                             db.TimeHeaders.Add(model.TimeHeader);
-                            db.SaveChanges();
                         }
                         db.SaveChanges();
-                        status = true;
+                    }
+                    
+                }
+                else if (model.TimeDetail.TimeDetailID > 0 && model.TimeHeader.TimeHeaderID > 0)
+                {
+                    //Edit
+                    var v = db.TimeDetails.Where(a => a.TimeDetailID == model.TimeDetail.TimeDetailID).FirstOrDefault();
+                    var x = db.TimeHeaders.Where(a => a.TimeHeaderID == model.TimeHeader.TimeHeaderID).FirstOrDefault();
+                    if (v != null)
+                    {
+                        v.TimeIn = model.TimeDetail.TimeIn;
+                        v.TimeOut = model.TimeDetail.TimeOut;
+                        v.TimeDeduct = model.TimeDetail.TimeDeduct;
+                        v.WorkTypeID = model.TimeDetail.WorkTypeID;
+                        v.BillableID = model.TimeDetail.BillableID;
+                        v.Notes = model.TimeDetail.Notes;
+                        x.Aggrement = model.TimeHeader.Aggrement;
+                        x.AggrementTypeID = model.TimeHeader.AggrementTypeID;
+                        x.CustomerID = model.TimeHeader.CustomerID;
+                        x.DivisonID = model.TimeHeader.DivisonID;
+                        x.Overnight = model.TimeHeader.Overnight;
+                        x.TimeDate = model.TimeHeader.TimeDate;
+                        x.TimeDetailID = model.TimeHeader.TimeDetailID;
+                        x.TimeHeaderID = model.TimeHeader.TimeHeaderID;
+                        x.UserID = model.TimeHeader.UserID;
+                        x.WorkRoleID = model.TimeHeader.WorkRoleID;
                     }
                     else
                     {
@@ -157,10 +159,22 @@ namespace SmartAdminMvc.Controllers
                         model.TimeHeader.TimeDetailID = model.TimeDetail.TimeDetailID;
                         db.TimeHeaders.Add(model.TimeHeader);
                         db.SaveChanges();
-                        status = true;
                     }
+                    db.SaveChanges();
+                    status = true;
+                }
+                else
+                {
+                    //Save
+                    db.TimeDetails.Add(model.TimeDetail);
+                    db.SaveChanges();
+                    model.TimeHeader.TimeDetailID = model.TimeDetail.TimeDetailID;
+                    db.TimeHeaders.Add(model.TimeHeader);
+                    db.SaveChanges();
+                    status = true;
                 }
             }
+
             return new JsonResult { Data = new { status = status } };
         }
 
@@ -371,7 +385,7 @@ namespace SmartAdminMvc.Controllers
                     if (weekStartDates[0].DayOfWeek > 0)
                     {
                         int days = 0 - weekStartDates[0].DayOfWeek;
-                        dates.Insert(0, weekStartDates[0].AddDays(days * -1));
+                        dates.Insert(0, weekStartDates[0].AddDays(days * 1));
                     }
                 }
             }

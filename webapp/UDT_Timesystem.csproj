@@ -1149,6 +1149,10 @@
     <Compile Include="Migrations\201711051654492_1024.Designer.cs">
       <DependentUpon>201711051654492_1024.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711081520050_timentry.cs" />
+    <Compile Include="Migrations\201711081520050_timentry.Designer.cs">
+      <DependentUpon>201711081520050_timentry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AggrementType.cs" />
@@ -1185,6 +1189,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711051654492_1024.resx">
       <DependentUpon>201711051654492_1024.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711081520050_timentry.resx">
+      <DependentUpon>201711081520050_timentry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

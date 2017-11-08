@@ -10,5 +10,6 @@ namespace SmartAdminMvc.Models
         public TimeHeader TimeHeader { get; set; }
         public TimeDetail TimeDetail { get; set; }
         public int DayNo { get; set; }
+        public string DateEdit { get; set; }
     }
 }
