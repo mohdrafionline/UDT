@@ -204,7 +204,7 @@
                                         <section class="col col-6">
                                             <label style="font-weight: bold;">Date</label>
                                             <label class="input">
-                                                @Html.TextBoxFor(m => m.TimeHeader.TimeDate, new { @type = "text", @name = "state", @id = "date" })
+                                                @Html.TextBoxFor(m => m.TimeHeader.TimeDate, new { @type = "text", @name = "date", @id = "date" })
                                             </label>
                                         </section>
                                         <section class="col col-6">
@@ -544,6 +544,8 @@
     }
     function ShowTimePopup(obj) {
         debugger;
+        var new_date = moment($("#hdnDateFrom").val(), "DD-MMM-YYYY").add('days', obj);
+        $("#date").val(new_date);
         $("#hdnTimeDate").val($("#hdnDateFrom").val());
         $("#hdnDaysAdd").val(obj);
         $("#myModal").modal('show');

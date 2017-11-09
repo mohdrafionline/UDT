@@ -175,7 +175,7 @@ namespace SmartAdminMvc.Controllers
                 }
             }
 
-            return new JsonResult { Data = new { status = status } };
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
