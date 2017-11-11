@@ -390,7 +390,7 @@ namespace SmartAdminMvc.Controllers
                     if (weekStartDates[0].DayOfWeek > 0)
                     {
                         int days = 0 - weekStartDates[0].DayOfWeek;
-                        dates.Insert(0, weekStartDates[0].AddDays(days * -1));
+                        dates.Insert(0, weekStartDates[0].AddDays(days * 1));
                     }
                 }
             }
