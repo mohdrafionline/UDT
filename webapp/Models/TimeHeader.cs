@@ -19,4 +19,11 @@ namespace SmartAdminMvc.Models
 
         public bool Overnight { get; set; }
     }
+
+    public class TimeDetailsResult
+    {
+        public string TimeIN { get; set; }
+        public string TimeOut { get; set; }
+        public string Notes { get; set; }
+    }
 }

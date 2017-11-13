@@ -92,7 +92,7 @@ namespace SmartAdminMvc.Controllers
                 {
 
                     DateTime dt = model.TimeHeader.TimeDate.AddDays(model.DayNo);
-                    if (dt!=null)
+                    if (dt != null)
                     {
                         model.TimeHeader.TimeDate = dt;
                         var x = db.TimeHeaders.Where(a => a.UserID == model.TimeHeader.UserID && a.TimeDate == model.TimeHeader.TimeDate).FirstOrDefault();
@@ -126,7 +126,7 @@ namespace SmartAdminMvc.Controllers
                         }
                         db.SaveChanges();
                     }
-                    
+
                 }
                 else if (model.TimeDetail.TimeDetailID > 0 && model.TimeHeader.TimeHeaderID > 0)
                 {
@@ -339,6 +339,33 @@ namespace SmartAdminMvc.Controllers
             return Json(new { data = result }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult GetTimeDetails(string datetime)
+        {
+            DateTime dateTimeT;
+            if (DateTime.TryParse(datetime, out dateTimeT))
+            {
+                using (var db = new DBEntity())
+                {
+                    var v = db.TimeHeaders.Where(e => e.TimeDate == dateTimeT).FirstOrDefault();
+                    if (v != null)
+                    {
+                        var x = db.TimeDetails.Where(e => e.TimeDetailID == v.TimeDetailID).FirstOrDefault();
+                        TimeDetailsResult res = new TimeDetailsResult()
+                        {
+                            TimeIN=x.TimeIn.ToString(),
+                            TimeOut=x.TimeOut.ToString(),
+                            Notes=x.Notes
+                        };
+                        return Json(res);
+                    }
+                    else
+                        return Json("");
+                }
+            }
+            else
+                return Json("");
+        }
 
         public int GetWeekNumber(DateTime dt)
         {
@@ -354,7 +381,8 @@ namespace SmartAdminMvc.Controllers
 
             foreach (var timedetail in timedetails)
             {
-                timespan.Add(timedetail.TimeOut.Subtract(timedetail.TimeIn));
+                var time = timedetail.TimeOut - timedetail.TimeIn;
+                timespan+=time;
             }
             return timespan;
         }
@@ -378,21 +406,32 @@ namespace SmartAdminMvc.Controllers
             using (var db = new DBEntity())
             {
                 var weekStartDates = db.TimeHeaders.Where(x => x.UserID == UserID).Select(x => x.TimeDate).ToList<DateTime>();
-                foreach (var weekStartDate in weekStartDates)
+
+                var maxDate = db.TimeHeaders.Max(x => x.TimeDate);
+                var minDate = db.TimeHeaders.Min(x => x.TimeDate);
+
+                if (minDate.DayOfWeek > 0)
                 {
-                    if (weekStartDate.DayOfWeek == DayOfWeek.Sunday)
-                    {
-                        dates.Add(weekStartDate);
-                    }
+                    var diff = 0 - minDate.DayOfWeek;
+                    minDate = minDate.AddDays(diff);
                 }
-                if (weekStartDates.Count > 0)
+
+                while (minDate <= maxDate)
                 {
-                    if (weekStartDates[0].DayOfWeek > 0)
+                    if (minDate.DayOfWeek == DayOfWeek.Sunday)
                     {
-                        int days = 0 - weekStartDates[0].DayOfWeek;
-                        dates.Insert(0, weekStartDates[0].AddDays(days * 1));
+                        dates.Add(minDate);
                     }
+                    minDate = minDate.AddDays(1);
                 }
+                //if (weekStartDates.Count > 0)
+                //{
+                //    if (weekStartDates[0].DayOfWeek > 0)
+                //    {
+                //        int days = 0 - weekStartDates[0].DayOfWeek;
+                //        dates.Insert(0, weekStartDates[0].AddDays(days * -1));
+                //    }
+                //}
             }
             return dates;
         }

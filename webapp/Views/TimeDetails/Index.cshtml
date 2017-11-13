@@ -254,7 +254,7 @@
                                 <section class="col col-2">
                                     <label style="font-weight: bold;">End Time</label>
                                     <label class="input">
-                                        @Html.TextBoxFor(m => m.TimeDetail.TimeOut, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "start" })
+                                        @Html.TextBoxFor(m => m.TimeDetail.TimeOut, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "timeOut" })
                                     </label>
                                 </section>
                                 <section class="col col-2">
@@ -286,7 +286,7 @@
                                 <section class="col">
                                     <label style="font-weight: bold;">Notes</label>
                                     <label class="input">
-                                        @Html.TextAreaFor(m => m.TimeDetail.Notes, new { @name = "start", @placeholder = "Enter Notes", @id = "start", @rows = "5", @cols = "70" })
+                                        @Html.TextAreaFor(m => m.TimeDetail.Notes, new { @name = "start", @placeholder = "Enter Notes", @id = "notes", @rows = "5", @cols = "70" })
                                     </label>
                                 </section>
 
@@ -554,6 +554,21 @@
     function ShowTimePopup(obj, date) {
         debugger;
         $("#date").val(date);
+
+        var data = { 'datetime': date };
+        $.ajax({
+            url: '/TimeDetails/GetTimeDetails',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (res) {
+                if (res != "") {
+                    $("#start").val(res.TimeIN);
+                    $("#timeOut").val(res.TimeOut);
+                    $("#notes").val(res.Notes);
+                }
+            }
+        });
         $("#hdnTimeDate").val($("#hdnDateFrom").val());
         $("#hdnDaysAdd").val(obj);
         $("#myModal").modal('show');
