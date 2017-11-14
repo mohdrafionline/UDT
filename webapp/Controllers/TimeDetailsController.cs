@@ -246,14 +246,14 @@ namespace SmartAdminMvc.Controllers
                     timesheetObj.Year = weekStartDate.Year;
                     timesheetObj.Period = GetWeekNumber(weekStartDate);
                     timesheetObj.DateFrom = weekStartDate;
-                    timesheetObj.DateFromJ = timesheetObj.DateFrom.ToShortDateString();
+                    timesheetObj.DateFromJ = timesheetObj.DateFrom.ToString("dd-MMM-yy");
                     timesheetObj.DateTo = weekStartDate.AddDays(7);
-                    timesheetObj.DateToJ = timesheetObj.DateTo.ToShortDateString();
+                    timesheetObj.DateToJ = timesheetObj.DateTo.ToString("dd-MMM-yy");
                     timesheetObj.Status = ""; // This needs to be added
                     timesheetObj.Hours = GetTotalTime(timeDetail);
                     timesheetObj.HoursJ = timesheetObj.Hours.ToString();
                     timesheetObj.DeadLine = DateTime.Now;  // need to ask
-                    timesheetObj.DeadLineJ = timesheetObj.DeadLine.ToShortDateString();
+                    timesheetObj.DeadLineJ = timesheetObj.DeadLine.ToString("dd-MMM-yy"); ;
 
 
                     timeheaders = db.TimeHeaders.Where(x => x.TimeDate == weekStartDate);

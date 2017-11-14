@@ -35,6 +35,10 @@
                 {
                     var culture = CultureInfo.GetCultureInfo(cookie.Value);
                     Thread.CurrentThread.CurrentUICulture = culture;
+                    CultureInfo newCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+                    newCulture.DateTimeFormat.ShortDatePattern = "dd-MMM-yyyy";
+                    newCulture.DateTimeFormat.DateSeparator = "-";
+                    Thread.CurrentThread.CurrentCulture = newCulture;
                 }
                 catch (CultureNotFoundException)
                 {
