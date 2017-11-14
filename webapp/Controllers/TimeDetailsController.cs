@@ -342,8 +342,8 @@ namespace SmartAdminMvc.Controllers
         [HttpPost]
         public ActionResult GetTimeDetails(string datetime)
         {
-            DateTime dateTimeT;
-            if (DateTime.TryParse(datetime, out dateTimeT))
+            DateTime dateTimeT=DateTime.ParseExact(datetime, "dd-MMM-yy", CultureInfo.CurrentCulture, DateTimeStyles.None);
+            if (dateTimeT!=null)
             {
                 using (var db = new DBEntity())
                 {
