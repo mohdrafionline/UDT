@@ -353,9 +353,20 @@ namespace SmartAdminMvc.Controllers
                         var x = db.TimeDetails.Where(e => e.TimeDetailID == v.TimeDetailID).FirstOrDefault();
                         TimeDetailsResult res = new TimeDetailsResult()
                         {
-                            TimeIN=x.TimeIn.ToString(),
-                            TimeOut=x.TimeOut.ToString(),
-                            Notes=x.Notes
+                            TimeIN = x.TimeIn.ToString(),
+                            TimeOut = x.TimeOut.ToString(),
+                            Notes = x.Notes,
+                            Aggrement = v.Aggrement,
+                            AggrementTypeID=v.AggrementTypeID,
+                            BillableID=x.BillableID,
+                            CustomerID=v.CustomerID,
+                            DivisonID=v.DivisonID,
+                            Overnight=v.Overnight,
+                            TimeDate=v.TimeDate.ToShortDateString(),
+                            UserID=v.UserID,
+                            WorkRoleID=v.WorkRoleID,
+                            WorkTypeID=x.WorkTypeID,
+                            Deduct=x.TimeDeduct.ToString()
                         };
                         return Json(res);
                     }

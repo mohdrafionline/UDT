@@ -198,7 +198,7 @@
                                 <section class="col col-6">
                                     <label style="font-weight: bold;">Company</label>
                                     <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeHeader.CustomerID, DropdownListHelper.GetCompanyList(), new { @class = "form-control input-sm", @id = "company" })
+                                        @Html.DropDownListFor(m => m.TimeHeader.CustomerID, DropdownListHelper.GetCompanyList(), new { @class = "form-control input-sm", @id = "customerID" })
                                     </label>
                                     <div class="row">
                                         <section class="col col-6">
@@ -219,7 +219,7 @@
                                     </div>
                                     <label style="font-weight: bold;">Work Role</label>
                                     <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeHeader.WorkRoleID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "gender" })
+                                        @Html.DropDownListFor(m => m.TimeHeader.WorkRoleID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "workerRoleID" })
                                     </label>
                                     <label style="font-weight: bold;">Aggrement</label>
                                     <label class="input">
@@ -272,13 +272,13 @@
                                 <section class="col col-2">
                                     <label style="font-weight: bold;">Work Type</label>
                                     <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeDetail.WorkTypeID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "gender" })
+                                        @Html.DropDownListFor(m => m.TimeDetail.WorkTypeID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "workTypeID" })
                                     </label>
                                 </section>
                                 <section class="col col-2">
                                     <label style="font-weight: bold;">Billable</label>
                                     <label class="input">
-                                        @Html.DropDownListFor(m => m.TimeDetail.BillableID, DropdownListHelper.GetBillableList(), new { @class = "form-control input-sm", @id = "gender" })
+                                        @Html.DropDownListFor(m => m.TimeDetail.BillableID, DropdownListHelper.GetBillableList(), new { @class = "form-control input-sm", @id = "billableid" })
                                     </label>
                                 </section>
                             </div>
@@ -566,6 +566,18 @@
                     $("#start").val(res.TimeIN);
                     $("#timeOut").val(res.TimeOut);
                     $("#notes").val(res.Notes);
+                    $("#customerID").val(res.CustomerID);
+                    $("#date").val(res.TimeDate);
+                    $("#overnight").val(res.Overnight);
+                    $("#workerRoleID").val(res.WorkRoleID);
+                    $("#aggrement").val(res.Aggrement);
+                    $("#userid").val(res.UserID);
+                    $("#division").val(res.DivisonID);
+
+                    $("#department").val(res.DivisonID);
+                    $("#timededuct").val(res.Deduct);
+                    $("#workTypeID").val(res.WorkTypeID);
+                    $("#billableid").val(res.BillableID);
                 }
             }
         });
