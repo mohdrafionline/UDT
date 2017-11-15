@@ -342,8 +342,9 @@ namespace SmartAdminMvc.Controllers
         [HttpPost]
         public ActionResult GetTimeDetails(string datetime)
         {
-            DateTime dateTimeT=DateTime.ParseExact(datetime, "dd-MMM-yy", CultureInfo.CurrentCulture, DateTimeStyles.None);
-            if (dateTimeT!=null)
+            string[] dates = datetime.Split('/');
+            DateTime dateTimeT = new DateTime(Convert.ToInt32(dates[2]), Convert.ToInt32(dates[1]), Convert.ToInt32(dates[0]));
+            if (dateTimeT != null)
             {
                 using (var db = new DBEntity())
                 {
@@ -357,16 +358,16 @@ namespace SmartAdminMvc.Controllers
                             TimeOut = x.TimeOut.ToString(),
                             Notes = x.Notes,
                             Aggrement = v.Aggrement,
-                            AggrementTypeID=v.AggrementTypeID,
-                            BillableID=x.BillableID,
-                            CustomerID=v.CustomerID,
-                            DivisonID=v.DivisonID,
-                            Overnight=v.Overnight,
-                            TimeDate=v.TimeDate.ToShortDateString(),
-                            UserID=v.UserID,
-                            WorkRoleID=v.WorkRoleID,
-                            WorkTypeID=x.WorkTypeID,
-                            Deduct=x.TimeDeduct.ToString()
+                            AggrementTypeID = v.AggrementTypeID,
+                            BillableID = x.BillableID,
+                            CustomerID = v.CustomerID,
+                            DivisonID = v.DivisonID,
+                            Overnight = v.Overnight,
+                            TimeDate = v.TimeDate.ToShortDateString(),
+                            UserID = v.UserID,
+                            WorkRoleID = v.WorkRoleID,
+                            WorkTypeID = x.WorkTypeID,
+                            Deduct = x.TimeDeduct.ToString()
                         };
                         return Json(res);
                     }
@@ -393,7 +394,7 @@ namespace SmartAdminMvc.Controllers
             foreach (var timedetail in timedetails)
             {
                 var time = timedetail.TimeOut - timedetail.TimeIn;
-                timespan+=time;
+                timespan += time;
             }
             return timespan;
         }
