@@ -122,7 +122,7 @@
                                             <input type="text" class="form-control" placeholder="Filter Postal Code" />
                                         </th>
                                         <th style="width:3%;">
-                                            <input type="button" class="btn btn-primary btn-xs btn-info" value="Add Time Details" data-toggle="modal" data-target="#myModal" />
+                                            <input type="button" class="btn btn-primary btn-xs btn-info" value="Add Time Details" data-toggle="modal" data-target="#newAppointment" />
                                         </th>
                                     </tr>
                                     <tr>
@@ -305,7 +305,141 @@
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal fade" id="newAppointment" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width:700px;">
+            @*<div class="modal-content animated bounceInRight">*@
+            <div class="modal-content animated flipInX">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        <img src="/content/img/logo.png" width="150" alt="SmartAdmin">
+                    </h4>
+                </div>
+                <div class="modal-body no-padding">
+                    @using (Html.BeginForm("SaveTimeNew", "TimeDetails", FormMethod.Post, new { @class = "smart-form", @id = "checkout-form", @enctype = "multipart/form-data" }))
+                    {
+                        <fieldset style="border:0 none;">
+                            <div class="row">
+                                @Html.HiddenFor(m => m.TimeHeader.UserID, new { @id = "hdnUserID" })
+                                @Html.HiddenFor(m => m.TimeHeader.TimeDate, new { @id = "hdnTimeDate" })
+                                @Html.HiddenFor(m => m.DayNo, new { @id = "hdnDaysAdd" })
+                                <input type="hidden" id="hdnDateFrom" />
+                                <section class="col col-6">
+                                    <label style="font-weight: bold;">Company</label>
+                                    <label class="input">
+                                        @Html.DropDownListFor(m => m.TimeHeader.CustomerID, DropdownListHelper.GetCompanyList(), new { @class = "form-control input-sm", @id = "customerID" })
+                                    </label>
+                                    <div class="row">
+                                        <section class="col col-6">
+                                            <label style="font-weight: bold;">Date</label>
+                                            <label class="input">
+                                                @Html.TextBoxFor(m => m.DateTimeNewAppointment, new { @type = "text", @name = "date", @id = "date",@placeholder="dd/mm/yyyy" })
+                                            </label>
+                                        </section>
+                                        <section class="col col-6">
+                                            <label style="font-weight: bold;"> &nbsp;</label>
+                                            <div class="margin-top-5">
+                                                @Html.CheckBoxFor(m => m.TimeHeader.Overnight, new { @name = "overnight", @id = "overnight" })
+                                                Overnight
+                                            </div>
+
+
+                                        </section>
+                                    </div>
+                                    <label style="font-weight: bold;">Work Role</label>
+                                    <label class="input">
+                                        @Html.DropDownListFor(m => m.TimeHeader.WorkRoleID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "workerRoleID" })
+                                    </label>
+                                    <label style="font-weight: bold;">Aggrement</label>
+                                    <label class="input">
+                                        @Html.TextBoxFor(m => m.TimeHeader.Aggrement, new { @type = "text", @name = "aggrement", @placeholder = "Aggrement", @id = "aggrement" })
+                                    </label>
+                                </section>
+                                <section class="col col-6">
+                                    <label style="font-weight: bold;">Member</label>
+                                    <label class="input">
+                                        @Html.TextBoxFor(m => m.TimeHeader.UserID, new { @type = "text", @name = "userid", @placeholder = "Member", @id = "userid" })
+                                    </label>
+
+                                    <label style="font-weight: bold;">Division</label>
+                                    <label class="input">
+                                        @Html.DropDownListFor(m => m.TimeHeader.DivisonID, DropdownListHelper.GetDepartmentList(), new { @class = "form-control input-sm", @id = "division" })
+                                    </label>
+                                    <label style="font-weight: bold;">Department</label>
+                                    <label class="input">
+                                        @Html.DropDownListFor(m => m.TimeHeader.DivisonID, DropdownListHelper.GetDepartmentList(), new { @class = "form-control input-sm", @id = "department" })
+                                    </label>
+                                </section>
+                            </div>
+                            <h5>Time Details</h5>
+
+                            <div class="row">
+                                <section class="col col-2">
+                                    <label style="font-weight: bold;">Start Time</label>
+                                    <label class="input">
+                                        @Html.TextBoxFor(m => m.TimeDetail.TimeIn, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "start" })
+                                    </label>
+                                </section>
+                                <section class="col col-2">
+                                    <label style="font-weight: bold;">End Time</label>
+                                    <label class="input">
+                                        @Html.TextBoxFor(m => m.TimeDetail.TimeOut, new { @type = "text", @name = "start", @placeholder = "Start Time", @id = "timeOut" })
+                                    </label>
+                                </section>
+                                <section class="col col-2">
+                                    <label style="font-weight: bold;">Deduct</label>
+                                    <label class="input">
+                                        @Html.TextBoxFor(m => m.TimeDetail.TimeDeduct, new { @type = "text", @name = "timededuct", @id = "timededuct" })
+                                    </label>
+                                </section>
+                                <section class="col col-2">
+                                    <label style="font-weight: bold;">Actual Hrs</label>
+                                    <label class="input">
+                                        <input type="text" name="txtActualHours" />
+                                    </label>
+                                </section>
+                                <section class="col col-2">
+                                    <label style="font-weight: bold;">Work Type</label>
+                                    <label class="input">
+                                        @Html.DropDownListFor(m => m.TimeDetail.WorkTypeID, DropdownListHelper.GetWorkList(), new { @class = "form-control input-sm", @id = "workTypeID" })
+                                    </label>
+                                </section>
+                                <section class="col col-2">
+                                    <label style="font-weight: bold;">Billable</label>
+                                    <label class="input">
+                                        @Html.DropDownListFor(m => m.TimeDetail.BillableID, DropdownListHelper.GetBillableList(), new { @class = "form-control input-sm", @id = "billableid" })
+                                    </label>
+                                </section>
+                            </div>
+                            <div class="row">
+                                <section class="col">
+                                    <label style="font-weight: bold;">Notes</label>
+                                    <label class="input">
+                                        @Html.TextAreaFor(m => m.TimeDetail.Notes, new { @name = "start", @placeholder = "Enter Notes", @id = "notes", @rows = "5", @cols = "70" })
+                                    </label>
+                                </section>
+
+                            </div>
+
+
+                        </fieldset>
+                        <footer class="modal-footer">
+                            <input type="submit" value="Save" name="Save" class="btn btn-success btn-sm" />
+                            <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">Cancel</button>
+                        </footer>
+
+                    }
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 </div>
 
 @section pagespecific {

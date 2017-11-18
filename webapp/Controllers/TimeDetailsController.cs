@@ -179,6 +179,30 @@ namespace SmartAdminMvc.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult SaveTimeNew(TimeViewModel model)
+        {
+            using (var db = new DBEntity())
+            {
+                if (model.DateTimeNewAppointment != "" && model.TimeDetail != null && model.TimeHeader != null)
+                {
+                    //Save
+                    string[] dates = model.DateTimeNewAppointment.Split('/');
+                    DateTime dateTimeT = new DateTime(Convert.ToInt32(dates[2]), Convert.ToInt32(dates[1]), Convert.ToInt32(dates[0]));
+                    model.TimeHeader.TimeDate = dateTimeT;
+                    db.TimeDetails.Add(model.TimeDetail);
+                    db.SaveChanges();
+                    model.TimeHeader.TimeDetailID = model.TimeDetail.TimeDetailID;
+                    db.TimeHeaders.Add(model.TimeHeader);
+                    db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {
